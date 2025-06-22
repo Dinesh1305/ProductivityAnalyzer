@@ -43,6 +43,10 @@ public class CompleteTaskService {
 		
 		return repo.getTodayTasks();
 	}
+	public List<Tasks> getWeek() {
+		
+		return repo.getCurrentWeekTasks();
+	}
 
 
 }
