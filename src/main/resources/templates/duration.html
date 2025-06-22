@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Durations</title>
+    <style>
+        table {
+            width: 50%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background-color: rgb(0, 128, 255);
+        }
+        h2 {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Work Duration Summary</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Work</th>
+                <th>Total Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="task : ${tasks}">
+                <td th:text="${task.work}"></td>
+                <td th:text="${task.totalDuration}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
