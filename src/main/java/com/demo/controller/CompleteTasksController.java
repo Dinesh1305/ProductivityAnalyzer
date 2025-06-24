@@ -58,10 +58,10 @@ public class CompleteTasksController {
 		return "duration";
 	}
 	
-	@GetMapping("/week")
+	@GetMapping("week")
 	public String findWeek(Model m)
 	{
-		System.out.println("gjgjg");
+		m.addAttribute("tasks", service.getWeek());
 	
 		return "duration";
 	}
