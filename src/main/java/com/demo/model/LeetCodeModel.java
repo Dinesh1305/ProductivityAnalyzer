@@ -25,7 +25,7 @@ public class LeetCodeModel {
 	
 	private  String lang;
 	
-	
+
 	@CreationTimestamp
 	private Timestamp time;
 	
