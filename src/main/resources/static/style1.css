@@ -1,0 +1,44 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.task-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.task-card {
+    background-color: #eaf1f8;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 5px solid #007bff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.task-card p {
+    margin: 8px 0;
+    color: #333;
+}
+
+.task-card strong {
+    color: #0056b3;
+}

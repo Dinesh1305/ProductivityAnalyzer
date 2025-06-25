@@ -29,7 +29,7 @@ public class CompleteTasksController {
 	
 	List<CompleteTasks>k=	service.getall();
 		model.addAttribute("List", k);
-		return "Complete-Task";
+		return "task";
 		
 	}
 	
@@ -43,7 +43,7 @@ public class CompleteTasksController {
        Date d2 = java.sql.Date.valueOf(endDate);
 
 		model.addAttribute("List",service.find(d1,d2));
-		return "Complete-Task";
+		return "task";
 		
 	}
 	
