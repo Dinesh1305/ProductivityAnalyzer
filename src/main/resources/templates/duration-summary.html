@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Work Duration Summary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -18,7 +19,7 @@
 
     .container {
       background: #fff;
-      padding: 30px;
+      padding: 30px 24px;
       border-radius: 16px;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
       width: 90%;
@@ -28,7 +29,8 @@
     h1 {
       text-align: center;
       color: #2c3e50;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
+      font-size: 1.8rem;
     }
 
     table {
@@ -37,31 +39,55 @@
     }
 
     th, td {
-      padding: 14px;
+      padding: 14px 12px;
       text-align: center;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid #e0e0e0;
+      word-break: break-word;
     }
 
     th {
       background-color: #1976d2;
       color: white;
       font-weight: 600;
+      font-size: 1rem;
     }
 
     tr:nth-child(even) {
-      background-color: #f1f1f1;
+      background-color: #f8f9fa;
+    }
+
+    tr:hover {
+      background-color: #e6f0fa;
     }
 
     a.back-link {
       display: inline-block;
-      margin-top: 20px;
+      margin-top: 25px;
       text-decoration: none;
       color: #1976d2;
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
     }
 
     a.back-link:hover {
+      color: #155fa0;
       text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px 16px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      th, td {
+        font-size: 0.95rem;
+        padding: 12px 8px;
+      }
     }
   </style>
 </head>
@@ -75,17 +101,13 @@
         <tr>
           <th>Work</th>
           <th>Total Duration</th>
-       
         </tr>
       </thead>
       <tbody>
-    
-		<tr th:each="task : ${tasks}">
-		  <td th:text="${task.work}">Work</td>
-		  <td th:text="${task.totalDuration != null ? task.totalDuration : '00:00:00'}">Duration</td>
-		
-		</tr>
-
+        <tr th:each="task : ${tasks}">
+          <td th:text="${task.work}">Work</td>
+          <td th:text="${task.totalDuration != null ? task.totalDuration : '00:00:00'}">Duration</td>
+        </tr>
       </tbody>
     </table>
 
