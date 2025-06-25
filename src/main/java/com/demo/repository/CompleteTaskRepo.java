@@ -100,8 +100,9 @@ public interface CompleteTaskRepo extends JpaRepository<CompleteTasks,Integer>{
     
     @Query(value = """
     	    SELECT 
-    	        work,
-    	        SEC_TO_TIME(SUM(TIMESTAMPDIFF(SECOND, starting_time, ending_time))) AS total_duration
+    	          work,
+    	        SUM(TIMESTAMPDIFF(SECOND, starting_time, ending_time)) AS total_seconds,
+    	        SEC_TO_TIME(SUM(TIMESTAMPDIFF(SECOND, starting_time, ending_time))) AS totalDuration
     	    FROM 
     	        complete_tasks
     	    WHERE 
@@ -111,7 +112,7 @@ public interface CompleteTaskRepo extends JpaRepository<CompleteTasks,Integer>{
     	    GROUP BY 
     	        work
     	""", nativeQuery = true)
-    	List<Tasks> getWorkDurationByDate(@Param("date") Date date);
+    	List<Tasks> getByDate(@Param("date") Date date);
 
     
     

@@ -64,4 +64,11 @@ public class HomeController {
 	}
 	
 	
+	@GetMapping("filterByDate")
+	public String filterByDate()
+	{
+		return "FilterByDate";
+	}
+	
+	
 }

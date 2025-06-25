@@ -1,69 +1,92 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Completed Tasks</title>
+  <meta charset="UTF-8" />
+  <title>Completed Tasks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      min-height: 100vh;
+    }
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background: #ffffff;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 28px;
+      font-size: 1.8rem;
+    }
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-        }
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
 
-        .task-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+    .task-card {
+      padding: 20px;
+      background-color: #f9fbfe;
+      border-left: 5px solid #1976d2;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease;
+    }
 
-        .task-card {
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-left: 5px solid #007BFF;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
+    .task-card:hover {
+      transform: translateY(-2px);
+    }
 
-        .task-card p {
-            margin: 8px 0;
-            font-size: 16px;
-        }
+    .task-card p {
+      margin: 10px 0;
+      font-size: 15px;
+      color: #444;
+    }
 
-        .task-card strong {
-            color: #444;
-        }
-    </style>
+    .task-card strong {
+      color: #333;
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 24px 18px;
+      }
+
+      .task-card p {
+        font-size: 14px;
+      }
+    }
+  </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Completed Tasks</h1>
+  <h1>Completed Tasks</h1>
 
-    <div class="task-list">
-        <div class="task-card" th:each="task : ${List}">
-            <p><strong>Work:</strong> <span th:text="${task.work}">Sample Work</span></p>
-            <p><strong>Start Time:</strong> <span th:text="${#dates.format(task.starting_time, 'hh:mm:ss a')}"></span></p>
-            <p><strong>End Time:</strong> <span th:text="${#dates.format(task.ending_time, 'hh:mm:ss a')}"></span></p>
-            <p><strong>Duration:</strong> <span th:text="${task.duration}">00h 00m 00s</span></p>
-        </div>
+  <div class="task-list">
+    <div class="task-card" th:each="task : ${List}">
+      <p><strong>Work:</strong> <span th:text="${task.work}">Sample Work</span></p>
+      <p><strong>Start Time:</strong> <span th:text="${#dates.format(task.starting_time, 'hh:mm:ss a')}">00:00 AM</span></p>
+      <p><strong>End Time:</strong> <span th:text="${#dates.format(task.ending_time, 'hh:mm:ss a')}">00:00 AM</span></p>
+      <p><strong>Duration:</strong> <span th:text="${task.duration}">00h 00m 00s</span></p>
     </div>
+  </div>
 </div>
 
 </body>

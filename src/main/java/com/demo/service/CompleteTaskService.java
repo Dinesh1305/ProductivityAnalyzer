@@ -48,5 +48,13 @@ public class CompleteTaskService {
 		return repo.getCurrentWeekTasks();
 	}
 
+	
+	public List<Tasks> filterByDate(Date date)
+	{
+		System.out.println(repo.getByDate(date));
+		
+		
+		return repo.getByDate(date);
+	}
 
 }
