@@ -37,7 +37,7 @@ public class CompleteTaskService {
 	
 	public List<Tasks> getAll()
 	{
-		return repo.getall();
+		return repo.getAll2();
 	}
 	public List<Tasks> getToday() {
 		

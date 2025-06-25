@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Completed Tasks</title>
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -38,7 +37,7 @@
     }
 
     th {
-      background-color: #607d8b;
+      background-color: #1976d2;
       color: white;
     }
 
@@ -66,19 +65,19 @@
     <table>
       <thead>
         <tr>
-          <th>Task</th>
-          <th>Start Time</th>
-          <th>End Time</th>
-          <th>Duration</th>
+          <th>Work</th>
+          <th>Total Duration</th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="task : ${List}">
           <td th:text="${task.work}"></td>
-		  <td th:text="${#dates.format(task.starting_time, 'hh:mm:ss a')}"></td>
-		  		  <td th:text="${#dates.format(task.ending_time, 'hh:mm:ss a')}"></td>
-
-          <td th:text="${task.duration}"></td>
+          <td>
+            <!-- Display day(s) only if day is not 0 -->
+            <span th:if="${#strings.substringBefore(task.totalDuration, ' ') != '0'}"
+                  th:text="${#strings.substringBefore(task.totalDuration, ' ') + ' day(s) '}"></span>
+            <span th:text="${#strings.substringAfter(task.totalDuration, ' day(s) ')}"></span>
+          </td>
         </tr>
       </tbody>
     </table>
