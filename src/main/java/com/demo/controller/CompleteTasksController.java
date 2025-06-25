@@ -83,6 +83,7 @@ public class CompleteTasksController {
 	public String FilterByDate(@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,Model m)
 	{
 		Date t=java.sql.Date.valueOf(date);
+		
 		m.addAttribute("tasks",service.filterByDate(t));
 		
 		
