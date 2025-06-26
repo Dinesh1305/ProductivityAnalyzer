@@ -29,7 +29,7 @@ public class CompleteTasksController {
 	
 	List<CompleteTasks>k=	service.getall();
 		model.addAttribute("List", k);
-		return "Complete-Task";
+		return "task";
 		
 	}
 	
@@ -43,7 +43,7 @@ public class CompleteTasksController {
        Date d2 = java.sql.Date.valueOf(endDate);
 
 		model.addAttribute("List",service.find(d1,d2));
-		return "Complete-Task";
+		return "task";
 		
 	}
 	
@@ -58,10 +58,10 @@ public class CompleteTasksController {
 		return "duration";
 	}
 	
-	@GetMapping("/week")
+	@GetMapping("week")
 	public String findWeek(Model m)
 	{
-		System.out.println("gjgjg");
+		m.addAttribute("tasks", service.getWeek());
 	
 		return "duration";
 	}
@@ -79,7 +79,17 @@ public class CompleteTasksController {
 	
 	
 	
-	
+	@GetMapping("date")
+	public String FilterByDate(@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,Model m)
+	{
+		Date t=java.sql.Date.valueOf(date);
+		
+		m.addAttribute("tasks",service.filterByDate(t));
+		
+		
+		
+		return "duration-summary";
+	}
 	
 	
 }

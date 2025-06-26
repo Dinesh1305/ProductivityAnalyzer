@@ -2,27 +2,30 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>View Tasks</title>
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f4f8;
       padding: 20px;
+      margin: 0;
     }
 
     .container {
-      background-color: #fff;
+      background-color: #ffffff;
       padding: 30px;
-      border-radius: 10px;
-      max-width: 800px;
+      border-radius: 16px;
+      max-width: 900px;
       margin: 0 auto;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
       text-align: center;
-      color: #333;
+      color: #2c3e50;
+      margin-bottom: 24px;
     }
 
     table {
@@ -32,47 +35,83 @@
     }
 
     th, td {
-      padding: 12px;
+      padding: 14px;
       text-align: center;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid #e0e0e0;
     }
 
     th {
-      background-color: #4CAF50;
+      background-color: #1976d2;
       color: white;
+      font-weight: 600;
     }
 
-    tr:hover {
-      background-color: #f1f1f1;
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
     }
 
     button {
-      background-color: #f44336;
+      background-color: #2196f3;
       color: white;
       border: none;
-      padding: 8px 16px;
-      border-radius: 5px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
     button:hover {
-      background-color: #d32f2f;
+      background-color: #1565c0;
     }
 
     a {
       display: inline-block;
       margin-top: 20px;
       text-decoration: none;
-      color: #2196F3;
-      font-weight: bold;
+      color: #1976d2;
+      font-weight: 600;
     }
 
     a:hover {
       text-decoration: underline;
     }
-  </style>
 
+    @media (max-width: 600px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+      }
+
+      th {
+        display: none;
+      }
+
+      tr {
+        margin-bottom: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        padding: 10px;
+        background-color: #fff;
+      }
+
+      td {
+        text-align: left;
+        padding: 8px 12px;
+        border-bottom: none;
+        position: relative;
+      }
+
+      td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #666;
+        display: block;
+        margin-bottom: 4px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -88,9 +127,9 @@
       </thead>
       <tbody>
         <tr th:each="task : ${Task}">
-          <td th:text="${task.work}"></td>
-          <td th:text="${#dates.format(task.time, 'hh:mm:ss a')}"></td>
-          <td>
+          <td data-label="Task" th:text="${task.work}">Sample Task</td>
+          <td data-label="Created Time" th:text="${#dates.format(task.time, 'hh:mm:ss a')}">12:00 PM</td>
+          <td data-label="Action">
             <form th:action="@{'/done/' + ${task.id}}" method="post">
               <button type="submit">Done</button>
             </form>
@@ -99,7 +138,7 @@
       </tbody>
     </table>
 
-    <a href="/Add-Task">Add New Task</a>
+    <a href="/Add-Task">+ Add New Task</a>
   </div>
 </body>
 </html>
