@@ -19,7 +19,7 @@ public class ProblemController {
 	public String add(@ModelAttribute  Problems p)
 	{
 		repo.save(p);
-		return "home";
+		return "index";
 	}
 	
 

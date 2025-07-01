@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.demo.model.Problems;
 import com.demo.model.Task;
 import com.demo.service.TaskService;
 @Controller
@@ -58,8 +59,10 @@ public class HomeController {
 	
 	
 	
-	@GetMapping("problems")
-	public String problems(){
+	@GetMapping("addProblem")
+	public String problems(Model m){
+		
+	m.addAttribute("problem", new Problems());
 		return "problem";
 	}
 	

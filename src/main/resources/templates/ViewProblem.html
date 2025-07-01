@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Problems List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px 20px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        a {
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            text-align: center;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <h1>List of Problems</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="problem : ${problemsList}">
+                <td th:text="${problem.name}"></td>
+                <td><a th:href="${problem.url}" th:text="${problem.url}" target="_blank"></a></td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/add}">Add Another Problem</a>
+</body>
+</html>
