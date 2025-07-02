@@ -1,61 +1,109 @@
-ProductivityAnalyzer
-# ⏱️ Task Time Tracker (Spring Boot + MySQL)
+⏱️ ProductivityAnalyzer
+Task Time Tracker using Spring Boot + MySQL
+A robust and efficient task tracking system built with Spring Boot, Spring Data JPA, and MySQL. It logs tasks along with their start and end times, automatically computes durations, and generates detailed time-based reports.
 
-This project is a task tracking system developed using **Spring Boot**, **Spring Data JPA**, and **MySQL**, designed to log tasks, their start and end times, and automatically compute the duration. It also provides summaries for daily, weekly, and custom time periods.
+📁 Project Structure
+Task – Basic entity to store task descriptions and creation timestamps.
 
----
+CompleteTasks – Entity for advanced time tracking, including start time, end time, and calculated duration.
 
-## 📁 Project Structure
+Tasks – A projection interface used for fetching summarized task data like work name and total duration.
 
-- **`Task`** – Entity for simple task entries with automatic timestamp.
-- **`CompleteTasks`** – Entity for detailed task tracking including start, end times, and computed durations.
-- **`Tasks`** – Projection interface for summarizing task durations.
-- **`CompleteTaskRepo`** – Repository with native SQL queries to fetch time-based analytics.
-- **Database** – MySQL is used as the underlying database.
+CompleteTaskRepo – Spring Data JPA repository that provides native SQL queries for efficient analytics.
 
----
+✅ Key Features
+Add and store task entries with precise timestamps.
 
-## ✅ Features
+Automatically calculate task duration between start and end times.
 
-- Add and track task entries with timestamps.
-- Automatically compute task duration from start and end times.
-- Get reports:
-  - 🔹 All tasks
-  - 🔹 Tasks for **today**
-  - 🔹 Tasks for **current week**
-  - 🔹 Tasks between custom **date ranges**
-  - 🔹 Tasks on a **specific date**
-- Flexible date/time-based query support using native SQL.
-- Summarized results include:
-  - `work`
-  - `total_seconds`
-  - `total_duration`
+Generate detailed reports by:
 
----
+📌 All recorded tasks
 
-## 📦 Technologies Used
+📅 Tasks for Today
 
-- Java 17+
-- Spring Boot
-- Spring Data JPA
-- Hibernate
-- MySQL
-- Jakarta Persistence (JPA)
-- Maven
+📈 Tasks for the Current Week
 
----
+📆 Tasks between Custom Date Ranges
 
-## 🗃️ Endpoints & Queries (via Repository)
+📍 Tasks on a Specific Date
 
-### ✔️ `CompleteTaskRepo` Highlights
+Native SQL support for performance-optimized querying.
 
-```java
+Summarized analytics returned include:
+
+work (task name/description)
+
+total_seconds (duration in raw seconds)
+
+total_duration (formatted as HH:MM:SS or days:hours:minutes)
+
+📦 Tech Stack
+Layer	Technology
+Backend	Java 17+, Spring Boot
+Persistence	Spring Data JPA, Hibernate
+Database	MySQL
+ORM API	Jakarta Persistence (JPA)
+Build Tool	Maven
+
+🛠️ Core Endpoints & Repository Methods
+🔍 Repository: CompleteTaskRepo
+java
+Copy
+Edit
+// Fetch tasks created today
 List<CompleteTasks> findTodayTasksSummary();
+
+// Fetch tasks between two specific dates
 List<CompleteTasks> find(Date startDate, Date endDate);
+
+// Return summarized durations grouped by 'work'
 List<Tasks> getWorkDurations();
-List<Tasks> getall(); // Total for all time
-List<Tasks> getAll2(); // Duration formatted with days
+
+// Get total summary of all tasks (raw seconds)
+List<Tasks> getall();
+
+// Get total summary (formatted duration e.g., 2d 4h)
+List<Tasks> getAll2();
+
+// Fetch today's summarized task durations
 List<Tasks> getTodayTasks();
+
+// Fetch summarized durations for the current week
 List<Tasks> getCurrentWeekTasks();
+
+// Fetch tasks on a specific date
 List<Tasks> getByDate(Date date);
+
+// Fetch tasks between any two timestamps (without date-only filtering)
 List<Tasks> getByNoInputPeriod(Timestamp start, Timestamp end);
+📊 Example Use Cases
+✅ Track working hours per project or task.
+
+🔁 Review weekly time spent and optimize productivity.
+
+📆 Analyze time usage patterns on specific dates.
+
+📈 Generate reports for performance evaluation.
+
+🚀 Getting Started
+Clone the repository:
+
+bash
+Copy
+Edit
+git clone https://github.com/Dinesh1305/ProductivityAnalyzer.git
+Set up your MySQL database and update application.properties:
+
+properties
+Copy
+Edit
+spring.datasource.url=jdbc:mysql://localhost:3306/your_db
+spring.datasource.username=root
+spring.datasource.password=your_password
+Run the application:
+
+bash
+Copy
+Edit
+./mvnw spring-boot:run
