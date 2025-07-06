@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Task Manager - Home</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     * {
       box-sizing: border-box;
@@ -30,18 +30,26 @@
       max-width: 520px;
       width: 100%;
       text-align: center;
-      animation: fadeIn 0.5s ease-in-out;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-in-out;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .index-container.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     h1 {
       color: #0d47a1;
       margin-bottom: 30px;
       font-size: 2.2rem;
+    }
+
+    #greeting {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 20px;
     }
 
     nav ul.nav-links {
@@ -64,6 +72,8 @@
       text-decoration: none;
       font-weight: 600;
       border-radius: 10px;
+      position: relative;
+      overflow: hidden;
       transition: all 0.3s ease;
     }
 
@@ -75,6 +85,26 @@
 
     nav ul.nav-links li a i {
       font-size: 1.1rem;
+    }
+
+    nav ul.nav-links li a::after {
+      content: "";
+      position: absolute;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: scale(0);
+      width: 100px;
+      height: 100px;
+      top: 50%;
+      left: 50%;
+      pointer-events: none;
+      transition: transform 0.5s ease;
+      transform-origin: center;
+    }
+
+    nav ul.nav-links li a:active::after {
+      transform: scale(4);
+      transition: 0s;
     }
 
     @media (max-width: 500px) {
@@ -94,8 +124,9 @@
   </style>
 </head>
 <body>
-  <div class="index-container">
+  <div class="index-container" id="mainContainer">
     <h1>Welcome to Task Manager</h1>
+    <div id="greeting">Hello!</div>
     <nav>
       <ul class="nav-links">
         <li><a href="/Add-Task"><i class="fas fa-plus-circle"></i>Add Task</a></li>
@@ -107,5 +138,23 @@
       </ul>
     </nav>
   </div>
+
+  <script>
+    // Fade-in animation
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('mainContainer').classList.add('show');
+
+      // Greeting based on time
+      const greeting = document.getElementById("greeting");
+      const hour = new Date().getHours();
+      if (hour < 12) {
+        greeting.textContent = "Good Morning ☀️";
+      } else if (hour < 18) {
+        greeting.textContent = "Good Afternoon 🌤️";
+      } else {
+        greeting.textContent = "Good Evening 🌙";
+      }
+    });
+  </script>
 </body>
 </html>
