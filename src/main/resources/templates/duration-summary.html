@@ -24,6 +24,11 @@
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
       width: 90%;
       max-width: 800px;
+      transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+      transform: scale(1.02);
     }
 
     h1 {
@@ -89,6 +94,13 @@
         padding: 12px 8px;
       }
     }
+
+    .no-data {
+      text-align: center;
+      color: #999;
+      font-size: 1.1rem;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -107,6 +119,9 @@
         <tr th:each="task : ${tasks}">
           <td th:text="${task.work}">Work</td>
           <td th:text="${task.totalDuration != null ? task.totalDuration : '00:00:00'}">Duration</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(tasks)}">
+          <td colspan="2" class="no-data">No tasks available.</td>
         </tr>
       </tbody>
     </table>

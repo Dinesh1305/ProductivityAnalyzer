@@ -20,12 +20,19 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
         }
 
         h2 {
             text-align: center;
             color: #2f3e46;
             margin-bottom: 24px;
+            font-size: 2rem;
+            letter-spacing: 1px;
         }
 
         table {
@@ -39,6 +46,7 @@
             border: 1px solid #e0e0e0;
             text-align: center;
             word-break: break-word;
+            transition: background-color 0.3s ease;
         }
 
         th {
@@ -66,6 +74,13 @@
                 font-size: 1.4rem;
             }
         }
+
+        .no-data {
+            text-align: center;
+            color: #999;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -84,6 +99,9 @@
             <tr th:each="task : ${tasks}">
                 <td th:text="${task.work}"></td>
                 <td th:text="${task.totalDuration}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(tasks)}">
+                <td colspan="2" class="no-data">No tasks available.</td>
             </tr>
         </tbody>
     </table>

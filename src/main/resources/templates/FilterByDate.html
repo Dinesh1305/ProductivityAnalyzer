@@ -24,13 +24,18 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
       text-align: center;
       width: 100%;
-      max-width: 350px;
+      max-width: 400px;
+      transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+      transform: scale(1.02);
     }
 
     h2 {
       margin-bottom: 24px;
       color: #2c3e50;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
     }
 
     form {
@@ -67,17 +72,48 @@
     button:hover {
       background: linear-gradient(to right, #1565c0, #0d47a1);
     }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 28px 20px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      input[type="date"] {
+        font-size: 14px;
+      }
+
+      button {
+        font-size: 15px;
+      }
+    }
   </style>
 </head>
 <body>
 
   <div class="container">
     <h2>Filter Tasks by Date</h2>
-    <form th:action="@{/date}" method="get">
+    <form th:action="@{/date}" method="get" onsubmit="return validateDate()">
       <input type="date" name="startDate" required />
       <button type="submit">Filter</button>
     </form>
   </div>
+
+  <script>
+    function validateDate() {
+      const startDate = document.querySelector('input[name="startDate"]').value;
+      const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+
+      if (startDate > today) {
+        alert("The selected date cannot be in the future.");
+        return false; // Prevent form submission
+      }
+      return true; // Allow form submission
+    }
+  </script>
 
 </body>
 </html>

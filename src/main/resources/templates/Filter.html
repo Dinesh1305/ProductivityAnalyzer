@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Select Date Range</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -24,6 +24,11 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
       max-width: 400px;
       width: 100%;
+      transition: transform 0.3s ease;
+    }
+
+    .date-form:hover {
+      transform: scale(1.02);
     }
 
     .date-form h2 {
@@ -82,7 +87,7 @@
   </style>
 </head>
 <body>
-  <form class="date-form" action="/between" method="get">
+  <form class="date-form" action="/between" method="get" onsubmit="return validateDates()">
     <h2>Select Date Range</h2>
     <div class="form-group">
       <label for="startDate">Start Date:</label>
@@ -94,5 +99,18 @@
     </div>
     <button type="submit">Search Tasks</button>
   </form>
+
+  <script>
+    function validateDates() {
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+
+      if (new Date(startDate) > new Date(endDate)) {
+        alert("Start date cannot be later than end date.");
+        return false; // Prevent form submission
+      }
+      return true; // Allow form submission
+    }
+  </script>
 </body>
 </html>

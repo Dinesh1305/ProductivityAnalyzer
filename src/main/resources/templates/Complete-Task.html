@@ -15,17 +15,24 @@
 
     .container {
       background-color: #ffffff;
-      padding: 30px;
+      padding: 40px;
       max-width: 1000px;
       margin: auto;
       border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .container:hover {
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
     }
 
     h1 {
       text-align: center;
       color: #2f3e46;
       margin-bottom: 30px;
+      font-size: 2.5rem;
+      letter-spacing: 1px;
     }
 
     table {
@@ -35,16 +42,17 @@
     }
 
     th, td {
-      padding: 14px 10px;
+      padding: 16px 12px;
       text-align: center;
       border-bottom: 1px solid #e0e0e0;
       word-break: break-word;
+      transition: background-color 0.3s ease;
     }
 
     th {
       background-color: #1976d2;
       color: white;
-      font-size: 1rem;
+      font-size: 1.1rem;
     }
 
     tr:hover {
@@ -54,31 +62,33 @@
     .back-link {
       display: inline-block;
       margin-top: 30px;
-      padding: 10px 18px;
+      padding: 12px 20px;
       background-color: #1976d2;
       color: white;
       border-radius: 8px;
       text-decoration: none;
-      font-weight: 500;
-      transition: background-color 0.3s ease;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-align: center;
     }
 
     .back-link:hover {
       background-color: #155a9c;
+      transform: translateY(-2px);
     }
 
     @media (max-width: 600px) {
       th, td {
         font-size: 0.9rem;
-        padding: 10px 6px;
+        padding: 12px 8px;
       }
 
       h1 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
       }
 
       .container {
-        padding: 20px;
+        padding: 30px;
       }
     }
   </style>
@@ -98,7 +108,6 @@
         <tr th:each="task : ${List}">
           <td th:text="${task.work}"></td>
           <td>
-            <!-- Show "X day(s)" only if days != 0 -->
             <span th:if="${#strings.substringBefore(task.totalDuration, ' ') != '0'}"
                   th:text="${#strings.substringBefore(task.totalDuration, ' ') + ' day(s) '}"></span>
             <span th:text="${#strings.substringAfter(task.totalDuration, ' day(s) ')}"></span>
@@ -107,7 +116,13 @@
       </tbody>
     </table>
 
-    <a href="/index" class="back-link">← Back to All Tasks</a>
+    <a href="/index" class="back-link" onclick="return confirmNavigation()">← Back to All Tasks</a>
   </div>
+
+  <script>
+    function confirmNavigation() {
+      return confirm("Are you sure you want to go back to the All Tasks page?");
+    }
+  </script>
 </body>
 </html>
