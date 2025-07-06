@@ -49,18 +49,18 @@
 
     button {
       width: 100%;
-      padding: 12px;
-      background-color: #4caf50;
+      padding: 16px; /* Increased padding for larger button */
+      background-color: #007bff; /* Blue color */
       color: white;
       border: none;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: 18px; /* Increased font size */
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
     button:hover {
-      background-color: #43a047;
+      background-color: #0056b3; /* Darker blue on hover */
     }
 
     a {
@@ -74,20 +74,61 @@
     a:hover {
       text-decoration: underline;
     }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: -15px;
+      margin-bottom: 15px;
+    }
+
+    .success {
+      color: green;
+      font-size: 14px;
+      margin-top: 15px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Add a New Task</h1>
 
-    <form th:action="@{/save}" th:object="${task}" method="post">
+    <form id="taskForm" th:action="@{/save}" th:object="${task}" method="post" onsubmit="return validateForm()">
       <label for="work">Task:</label>
       <input type="text" id="work" th:field="*{work}" placeholder="Enter your task" required />
+      <div id="error-message" class="error"></div>
 
       <button type="submit">Add Task</button>
     </form>
 
+    <div id="success-message" class="success" style="display: none;"></div>
+
     <a th:href="@{/View}">📋 View All Tasks</a>
   </div>
+
+  <script>
+    function validateForm() {
+      const taskInput = document.getElementById('work');
+      const errorMessage = document.getElementById('error-message');
+      const successMessage = document.getElementById('success-message');
+
+      // Clear previous messages
+      errorMessage.textContent = '';
+      successMessage.style.display = 'none';
+
+      // Validate input
+      if (taskInput.value.trim() === '') {
+        errorMessage.textContent = 'Task cannot be empty.';
+        return false; // Prevent form submission
+      }
+
+      // If validation passes, show success message
+      successMessage.textContent = 'Task added successfully!';
+      successMessage.style.display = 'block';
+
+      // Allow form submission
+      return true;
+    }
+  </script>
 </body>
 </html>
