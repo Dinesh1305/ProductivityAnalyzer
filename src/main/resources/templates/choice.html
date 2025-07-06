@@ -74,31 +74,48 @@
         flex: 1 1 45%;
       }
     }
+
+    .message {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: green;
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>View Work Durations</h1>
     <div class="button-group">
-      <form action="today" method="get">
+      <form action="today" method="get" onsubmit="return showMessage('Today')">
         <button type="submit" class="choice-btn">Today</button>
       </form>
-      <form action="between" method="get">
+      <form action="between" method="get" onsubmit="return showMessage('Between')">
         <button type="submit" class="choice-btn">Between</button>
       </form>
-      <form action="getAll" method="get">
+      <form action="getAll" method="get" onsubmit="return showMessage('Full List')">
         <button type="submit" class="choice-btn">Full List</button>
       </form>
-      <form action="week" method="get">
+      <form action="week" method="get" onsubmit="return showMessage('This Week')">
         <button type="submit" class="choice-btn">This Week</button>
       </form>
-      <form action="filterByDate" method="get">
+      <form action="filterByDate" method="get" onsubmit="return showMessage('By Date')">
         <button type="submit" class="choice-btn">By Date</button>
       </form>
-	  <form action="filterByTime" method="get">
-	         <button type="submit" class="choice-btn">By Time</button>
-	       </form>
+      <form action="filterByTime" method="get" onsubmit="return showMessage('By Time')">
+        <button type="submit" class="choice-btn">By Time</button>
+      </form>
     </div>
+    <div id="confirmation-message" class="message"></div>
   </div>
+
+  <script>
+    function showMessage(action) {
+      const messageDiv = document.getElementById('confirmation-message');
+      messageDiv.textContent = `You have selected: ${action}`;
+      messageDiv.style.display = 'block';
+      return true; // Allow form submission
+    }
+  </script>
 </body>
 </html>
