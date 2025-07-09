@@ -3,110 +3,154 @@
 <head>
   <meta charset="UTF-8">
   <title>Work Duration Summary</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary: #1976d2;
+      --primary-light: #e3f2fd;
+      --card-bg: #ffffff;
+      --shadow: rgba(0, 0, 0, 0.08);
+      --radius: 16px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f4f6f8;
-      margin: 0;
+      background: linear-gradient(to right, #eef2f3, #8e9eab);
       padding: 40px 20px;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      align-items: flex-start;
     }
 
     .container {
-      background: #fff;
-      padding: 30px 24px;
-      border-radius: 16px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-      width: 90%;
-      max-width: 800px;
-      transition: transform 0.3s ease;
+      background: var(--card-bg);
+      padding: 32px 28px;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 24px var(--shadow);
+      max-width: 900px;
+      width: 100%;
+      transition: all 0.3s ease;
+      animation: fadeIn 0.5s ease;
     }
 
-    .container:hover {
-      transform: scale(1.02);
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .header-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 12px var(--shadow);
     }
 
     h1 {
-      text-align: center;
+      font-size: 1.9rem;
       color: #2c3e50;
-      margin-bottom: 28px;
-      font-size: 1.8rem;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-top: 10px;
     }
 
     th, td {
-      padding: 14px 12px;
-      text-align: center;
+      padding: 16px 14px;
+      text-align: left;
+      font-size: 0.98rem;
       border-bottom: 1px solid #e0e0e0;
-      word-break: break-word;
     }
 
     th {
-      background-color: #1976d2;
+      background-color: var(--primary);
       color: white;
       font-weight: 600;
-      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
 
     tr:nth-child(even) {
-      background-color: #f8f9fa;
+      background-color: var(--primary-light);
     }
 
-    tr:hover {
-      background-color: #e6f0fa;
-    }
-
-    a.back-link {
+    .badge {
       display: inline-block;
-      margin-top: 25px;
-      text-decoration: none;
-      color: #1976d2;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: color 0.3s ease;
+      background: #e3f2fd;
+      color: #1565c0;
+      font-size: 0.85rem;
+      font-family: 'Roboto Mono', monospace;
+      padding: 6px 10px;
+      border-radius: 50px;
     }
 
-    a.back-link:hover {
-      color: #155fa0;
+    .no-data {
+      text-align: center;
+      color: #777;
+      padding: 20px 0;
+      font-size: 1.05rem;
+    }
+
+    .back-link {
+      margin-top: 30px;
+      display: inline-block;
+      font-weight: 600;
+      color: #1976d2;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #0d47a1;
       text-decoration: underline;
     }
 
     @media (max-width: 600px) {
-      .container {
-        padding: 20px 16px;
+      th, td {
+        padding: 12px 8px;
+        font-size: 0.9rem;
+      }
+
+      .header-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 18px;
       }
 
       h1 {
         font-size: 1.5rem;
       }
-
-      th, td {
-        font-size: 0.95rem;
-        padding: 12px 8px;
-      }
-    }
-
-    .no-data {
-      text-align: center;
-      color: #999;
-      font-size: 1.1rem;
-      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <h1>Work Duration Summary</h1>
+    <div class="header">
+      <div class="header-icon">⏱</div>
+      <h1>Work Duration Summary</h1>
+    </div>
 
     <table>
       <thead>
@@ -117,8 +161,8 @@
       </thead>
       <tbody>
         <tr th:each="task : ${tasks}">
-          <td th:text="${task.work}">Work</td>
-          <td th:text="${task.totalDuration != null ? task.totalDuration : '00:00:00'}">Duration</td>
+          <td><span class="badge" th:text="${task.work}">Work</span></td>
+          <td th:text="${task.totalDuration != null ? task.totalDuration : '00:00:00'}">00:00:00</td>
         </tr>
         <tr th:if="${#lists.isEmpty(tasks)}">
           <td colspan="2" class="no-data">No tasks available.</td>
@@ -128,6 +172,5 @@
 
     <a href="/index" class="back-link">← Back to All Tasks</a>
   </div>
-
 </body>
 </html>
