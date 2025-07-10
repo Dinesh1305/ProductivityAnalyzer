@@ -1,7 +1,8 @@
 package com.demo.model;
 
-import jakarta.persistence.Entity;
+import java.net.URL;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
@@ -11,7 +12,7 @@ public class Problems  {
 	@Id 
 	private String name;
 	
-	private String  url;
+	private URL  url;
 
 	public String getName() {
 		return name;
@@ -21,11 +22,11 @@ public class Problems  {
 		this.name = name;
 	}
 
-	public String getUrl() {
+	public URL getUrl() {
 		return url;
 	}
 
-	public void setUrl(String url) {
+	public void setUrl(URL url) {
 		this.url = url;
 	}
 }
