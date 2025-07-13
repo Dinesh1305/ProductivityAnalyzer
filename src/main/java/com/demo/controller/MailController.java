@@ -22,7 +22,10 @@ public class MailController {
 	{
 	
 	//mail.send(service.getWeek());
-	mail.send(service.getAll());
+	mail.send(service.getWeek());
+	
+	
+	
 	
 	return "success";
 	}
