@@ -1,5 +1,7 @@
 package com.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,14 +27,19 @@ public class ProblemController {
 	}
 	
 	
-	@GetMapping("getProblems")
+	@GetMapping("problems")
 	public String get(Model m)
 	{
 		
 		
-		m.addAttribute("problemsList", repo.findAll());
+		m.addAttribute("problems", repo.findAll());
 		
-		return "index";
+	List<Problems>t=repo.findAll();
+		for(Problems y:t)
+		{
+			System.out.println(y.getName()+"   "+y.getUrl());
+		}
+		return "ViewProblem";
 		
 	}
 }
