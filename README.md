@@ -106,4 +106,3 @@ Run the application:
 bash
 Copy
 Edit
-./mvnw spring-boot:run
