@@ -2,8 +2,7 @@ package com.demo.repository;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -121,8 +120,7 @@ public interface CompleteTaskRepo extends JpaRepository<CompleteTasks,Integer>{
     	List<Tasks> getByDate(@Param("date") Date date);
 
     
-    
-    
+   
     @Query(value = """
     	    SELECT 
     	        work,
