@@ -16,16 +16,13 @@ import com.demo.model.Tasks;
 public interface CompleteTaskRepo extends JpaRepository<CompleteTasks,Integer>{
 
 
-	
-	
-	
 	@Query(value = "SELECT * FROM complete_tasks WHERE DATE(created_date) = CURDATE()", nativeQuery = true)
 	List<CompleteTasks> findTodayTasksSummary();
 
 	@Query(value = "SELECT * FROM complete_tasks WHERE DATE(created_date) BETWEEN :startDate AND :endDate", nativeQuery = true)
 	List<CompleteTasks> find(@Param("startDate") Date d1, @Param("endDate") Date d2);
 	
-	
+
     @Query(value = """
             SELECT work, 
                    SEC_TO_TIME(SUM(TIMESTAMPDIFF(SECOND, starting_time, ending_time))) AS total_duration 

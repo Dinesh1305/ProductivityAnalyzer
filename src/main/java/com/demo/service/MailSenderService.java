@@ -26,7 +26,7 @@ public class MailSenderService {
 		for(Tasks h:list)
 			builder.append(h.getWork()+"  "+h.getTotalDuration()+" \n");
 		
-		sender.setTo("71762305014@cit.edu.in");
+		sender.setTo("dinesh.official1305@gmail.com");
 		
 		
 		System.out.println(builder);
