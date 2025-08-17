@@ -93,11 +93,6 @@ public class CompleteTasksController {
 	
 	
 	
-	@GetMapping("filterByTime")
-	public String filterByTime(Model m)
-	{
-		m.addAttribute("tasks", service.getByTime());
-		 return "duration";
-	}
+
 	
 }

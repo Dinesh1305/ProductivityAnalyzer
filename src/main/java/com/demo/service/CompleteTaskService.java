@@ -59,17 +59,6 @@ public class CompleteTaskService {
 		
 		return repo.getByDate(date);
 	}
-	public List<Tasks> getByTime() {
-	
-		
-		
-		LocalDateTime start = LocalDate.now().minusDays(1).atTime(5, 30);
-		LocalDateTime end = LocalDate.now().atTime(1, 30);
 
-		Timestamp startTs = Timestamp.valueOf(start);
-		Timestamp endTs = Timestamp.valueOf(end);
-		
-		return repo.getByNoInputPeriod(startTs, endTs);
-	}
 
 }
