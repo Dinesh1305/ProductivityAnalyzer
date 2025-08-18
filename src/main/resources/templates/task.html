@@ -64,6 +64,23 @@
       font-weight: 600;
     }
 
+    .remove-btn {
+      background-color: #e53935;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 12px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .remove-btn:hover {
+      background-color: #c62828;
+      transform: translateY(-2px);
+    }
+
     @media (max-width: 600px) {
       .container {
         padding: 24px 18px;
@@ -86,6 +103,12 @@
       <p><strong>Start Time:</strong> <span th:text="${#dates.format(task.starting_time, 'hh:mm:ss a')}">00:00 AM</span></p>
       <p><strong>End Time:</strong> <span th:text="${#dates.format(task.ending_time, 'hh:mm:ss a')}">00:00 AM</span></p>
       <p><strong>Duration:</strong> <span th:text="${task.duration}">00h 00m 00s</span></p>
+
+      <!-- ✅ Remove button -->
+      <form th:action="@{/removeTask/{id}(id=${task.id})}" method="post"
+            onsubmit="return confirm('Are you sure you want to remove this task?');">
+        <button type="submit" class="remove-btn">Remove</button>
+      </form>
     </div>
   </div>
 </div>

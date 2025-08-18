@@ -59,6 +59,12 @@ public class CompleteTaskService {
 		
 		return repo.getByDate(date);
 	}
+	
+	
+	
+	public void Remove(int id) {
+		repo.deleteById(id);
+	}
 
 
 }

@@ -9,6 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demo.model.CompleteTasks;
@@ -92,7 +94,12 @@ public class CompleteTasksController {
 	}
 	
 	
-	
+	@PostMapping("/removeTask/{id}")
+	public String removeTask(@PathVariable int id) 
+	{
+		service.Remove(id);
+		return "index";
+	}
 
 	
 }
