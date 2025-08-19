@@ -25,7 +25,7 @@ public class TaskController {
 	public String done(@PathVariable Integer id)
 	{
 		taskservice.remove(id);
-		return "redirect:/index";
+		return "index";
 
 		
 	}
