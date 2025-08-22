@@ -20,6 +20,9 @@ public class ChartController {
 
 	@Autowired
 	CompleteTaskService service;
+	
+
+
     
     @GetMapping("/today")
     public Map<String, Object> getToday() {
