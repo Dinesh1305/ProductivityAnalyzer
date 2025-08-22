@@ -63,7 +63,10 @@ public class CompleteTasksController {
 	@GetMapping("today")
 	public String findToday(Model m) {
 
+		
+		
 		List<Tasks> t = service.getToday();
+		//System.out.print(service.getDuartion());
 		m.addAttribute("tasks", t);
 		return "duration";
 	}
