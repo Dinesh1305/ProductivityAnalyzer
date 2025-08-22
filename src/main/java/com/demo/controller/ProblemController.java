@@ -14,32 +14,26 @@ import com.demo.repository.ProblemRepo;
 
 @Controller
 public class ProblemController {
-	
-	
+
 	@Autowired
 	ProblemRepo repo;
 
 	@PostMapping("addProblem")
-	public String add(@ModelAttribute  Problems p)
-	{
+	public String add(@ModelAttribute Problems p) {
 		repo.save(p);
 		return "index";
 	}
-	
-	
+
 	@GetMapping("problems")
-	public String get(Model m)
-	{
-		
-		
+	public String get(Model m) {
+
 		m.addAttribute("problems", repo.findAll());
-		
-	List<Problems>t=repo.findAll();
-		for(Problems y:t)
-		{
-			System.out.println(y.getName()+"   "+y.getUrl());
+
+		List<Problems> t = repo.findAll();
+		for (Problems y : t) {
+			System.out.println(y.getName() + "   " + y.getUrl());
 		}
 		return "ViewProblem";
-		
+
 	}
 }

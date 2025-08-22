@@ -9,17 +9,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-
 @Entity
 public class Task {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@CreationTimestamp
-	
-	private Timestamp time; 
-	
+
+	private Timestamp time;
+
 	private String work;
 
 	public Integer getId() {
@@ -45,9 +44,5 @@ public class Task {
 	public void setWork(String work) {
 		this.work = work;
 	}
-	
-	
-	
-	
-	
+
 }

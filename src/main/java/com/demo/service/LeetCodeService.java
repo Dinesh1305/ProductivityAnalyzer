@@ -8,15 +8,13 @@ import com.demo.repository.ProblemRepo;
 
 @Service
 public class LeetCodeService {
-	
+
 	@Autowired
 	ProblemRepo pr;
 
-
-	public void remove(Problems p)
-	{
-	//	pr.removeById(p.getId());
+	public void remove(Problems p) {
+		// pr.removeById(p.getId());
 		pr.delete(p);
 	}
-	
+
 }

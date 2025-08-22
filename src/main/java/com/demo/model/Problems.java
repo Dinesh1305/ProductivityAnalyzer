@@ -6,13 +6,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class Problems  {
+public class Problems {
 
-	
-	@Id 
+	@Id
 	private String name;
-	
-	private URL  url;
+
+	private URL url;
 
 	public String getName() {
 		return name;

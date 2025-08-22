@@ -14,25 +14,22 @@ import com.demo.model.Tasks;
 @Service
 public class MailSenderService {
 
-	
 	@Autowired
 	JavaMailSender send;
-	
-	public void send(List<Tasks> list)
-	{
-	
-		SimpleMailMessage sender=new SimpleMailMessage();
-		StringBuilder builder=new StringBuilder();
-		for(Tasks h:list)
-			builder.append(h.getWork()+"  "+h.getTotalDuration()+" \n");
-		
+
+	public void send(List<Tasks> list) {
+
+		SimpleMailMessage sender = new SimpleMailMessage();
+		StringBuilder builder = new StringBuilder();
+		for (Tasks h : list)
+			builder.append(h.getWork() + "  " + h.getTotalDuration() + " \n");
+
 		sender.setTo("dinesh.official1305@gmail.com");
-		
-		
+
 		System.out.println(builder);
 		sender.setText(new String(builder));
 		send.send(sender);
-		
+
 	}
-	
+
 }

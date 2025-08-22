@@ -8,9 +8,7 @@ public class CompleteProblems {
 
 	@Id
 	private String name;
-	
-	
+
 	private URL url;
-	
-	
+
 }

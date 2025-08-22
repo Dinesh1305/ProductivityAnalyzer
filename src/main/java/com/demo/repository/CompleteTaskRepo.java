@@ -107,8 +107,5 @@ public interface CompleteTaskRepo extends JpaRepository<CompleteTasks, Integer> 
 			        work
 			""", nativeQuery = true)
 	List<Tasks> getByDate(@Param("date") Date date);
-	
-	
-
 
 }

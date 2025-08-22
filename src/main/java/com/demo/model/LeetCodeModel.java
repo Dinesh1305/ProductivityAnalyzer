@@ -13,25 +13,19 @@ import jakarta.persistence.Id;
 public class LeetCodeModel {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	
+
 	private String title;
-	
+
 	private String titleSlug;
-	
+
 	private String status;
-	
-	private  String lang;
-	
+
+	private String lang;
 
 	@CreationTimestamp
 	private Timestamp time;
-	
-	
-	
-	
 
 	public Integer getId() {
 		return id;
@@ -80,8 +74,5 @@ public class LeetCodeModel {
 	public void setTime(Timestamp time) {
 		this.time = time;
 	}
-	
-	
-	
-	
+
 }

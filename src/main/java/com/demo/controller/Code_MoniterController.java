@@ -15,8 +15,7 @@ import reactor.core.publisher.Mono;
 public class Code_MoniterController {
 
 	@GetMapping("getDetails")
-	public String details()
-	{
+	public String details() {
 		WebClient client = WebClient.create("https://leetcode.com");
 
 		String query = """
@@ -30,15 +29,12 @@ public class Code_MoniterController {
 				}
 				""";
 
-		Mono<ResponseEntity<String>> result = client.post()
-		    .uri("/graphql")
-		    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-		    .bodyValue(Map.of("query", query))
-		    .retrieve()
-		    .toEntity(String.class); 
+		Mono<ResponseEntity<String>> result = client.post().uri("/graphql")
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).bodyValue(Map.of("query", query))
+				.retrieve().toEntity(String.class);
 
-		  ResponseEntity<String> response = result.block();
-		    return response.getBody();
-	
+		ResponseEntity<String> response = result.block();
+		return response.getBody();
+
 	}
 }

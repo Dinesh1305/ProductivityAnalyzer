@@ -10,23 +10,18 @@ import com.demo.service.MailSenderService;
 @RestController
 public class MailController {
 
-	
-	
 	@Autowired
 	CompleteTaskService service;
-	
+
 	@Autowired
 	MailSenderService mail;
+
 	@GetMapping("send")
-	public String send()
-	{
-	
-	//mail.send(service.getWeek());
-	mail.send(service.getWeek());
-	
-	
-	
-	
-	return "success";
+	public String send() {
+
+		// mail.send(service.getWeek());
+		mail.send(service.getWeek());
+
+		return "success";
 	}
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.demo.model.LeetCodeModel;
 
 @Repository
-public interface LeetcodeRepo extends JpaRepository<LeetCodeModel,Integer> {
+public interface LeetcodeRepo extends JpaRepository<LeetCodeModel, Integer> {
 
 }
