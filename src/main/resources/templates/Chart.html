@@ -42,7 +42,7 @@
     }
 
     // Fetch data from Spring Boot API
-    fetch('/api/chart/today')
+    fetch('/api/chart/week')
       .then(response => response.json())
       .then(data => {
         const ctx = document.getElementById('myChart').getContext('2d');

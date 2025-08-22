@@ -20,32 +20,41 @@ public class ChartController {
 
 	@Autowired
 	CompleteTaskService service;
-	
-
-    @GetMapping("/sales")
-    public Map<String, Object> getSalesData() {
-        Map<String, Object> response = new HashMap<>();
-
-        // Labels for x-axis
-   
-        
-        
-        
-        
-        response.put("labels", List.of("Jan", "Feb", "Mar", "Apr", "May"));
-
-        // Data for y-axis
-        response.put("data", List.of(120, 150, 180, 90, 200));
-
-        return response;
-
-}
     
     @GetMapping("/today")
     public Map<String, Object> getToday() {
         Map<String, Object> response = new HashMap<>();
 
         List<Tasks>t=service.getToday();
+        
+        System.out.println(t);
+        
+        
+        List<String>work=new ArrayList<>();
+        
+        List<Long>duration=new ArrayList<>();
+        
+        for(Tasks temp:t)
+        {
+        	work.add(temp.getWork());
+        	
+        	duration.add(temp.getTotalSeconds());
+        }
+        // Labels for x-axis
+        response.put("labels", work);
+
+        // Data for y-axis
+        response.put("data", duration);
+
+        return response;
+
+}
+    
+    @GetMapping("/week")
+    public Map<String, Object> getWeek() {
+        Map<String, Object> response = new HashMap<>();
+
+        List<Tasks>t=service.getWeek();
         
         System.out.println(t);
         
