@@ -1,134 +1,141 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Add Task</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0f2f5;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+	<meta charset="UTF-8" />
+	<title>Add Task</title>
+	<link rel="stylesheet" href="styles.css" />
+	<style>
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background-color: #f0f2f5;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
 
-    .container {
-      background-color: #ffffff;
-      padding: 30px 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
-      width: 100%;
-    }
+		.container {
+			background-color: #ffffff;
+			padding: 30px 40px;
+			border-radius: 12px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			max-width: 400px;
+			width: 100%;
+		}
 
-    h1 {
-      text-align: center;
-      margin-bottom: 25px;
-      color: #333;
-    }
+		h1 {
+			text-align: center;
+			margin-bottom: 25px;
+			color: #333;
+		}
 
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 8px;
-      color: #555;
-    }
+		label {
+			font-weight: bold;
+			display: block;
+			margin-bottom: 8px;
+			color: #555;
+		}
 
-    input[type="text"] {
-      width: 100%;
-      padding: 10px 14px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-    }
+		input[type="text"] {
+			width: 100%;
+			padding: 10px 14px;
+			margin-bottom: 20px;
+			border: 1px solid #ccc;
+			border-radius: 8px;
+			font-size: 16px;
+		}
 
-    button {
-      width: 100%;
-      padding: 16px; /* Increased padding for larger button */
-      background-color: #007bff; /* Blue color */
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 18px; /* Increased font size */
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+		button {
+			width: 100%;
+			padding: 16px;
+			/* Increased padding for larger button */
+			background-color: #007bff;
+			/* Blue color */
+			color: white;
+			border: none;
+			border-radius: 8px;
+			font-size: 18px;
+			/* Increased font size */
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
 
-    button:hover {
-      background-color: #0056b3; /* Darker blue on hover */
-    }
+		button:hover {
+			background-color: #0056b3;
+			/* Darker blue on hover */
+		}
 
-    a {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
-      color: #007bff;
-      text-decoration: none;
-    }
+		a {
+			display: block;
+			text-align: center;
+			margin-top: 20px;
+			color: #007bff;
+			text-decoration: none;
+		}
 
-    a:hover {
-      text-decoration: underline;
-    }
+		a:hover {
+			text-decoration: underline;
+		}
 
-    .error {
-      color: red;
-      font-size: 14px;
-      margin-top: -15px;
-      margin-bottom: 15px;
-    }
+		.error {
+			color: red;
+			font-size: 14px;
+			margin-top: -15px;
+			margin-bottom: 15px;
+		}
 
-    .success {
-      color: green;
-      font-size: 14px;
-      margin-top: 15px;
-    }
-  </style>
+		.success {
+			color: green;
+			font-size: 14px;
+			margin-top: 15px;
+		}
+	</style>
 </head>
+
 <body>
-  <div class="container">
-    <h1>Add a New Task</h1>
+	<div class="container">
+		<h1>Add a New Task</h1>
 
-    <form id="taskForm" th:action="@{/save}" th:object="${task}" method="post" onsubmit="return validateForm()">
-      <label for="work">Task:</label>
-      <input type="text" id="work" th:field="*{work}" placeholder="Enter your task" required />
-      <div id="error-message" class="error"></div>
+		<form id="taskForm" th:action="@{/save}" th:object="${task}" method="post" onsubmit="return validateForm()">
+			<label for="work">Task:</label>
+			<input type="text" id="work" th:field="*{work}" placeholder="Enter your task" required />
+			<div id="error-message" class="error"></div>
 
-      <button type="submit">Add Task</button>
-    </form>
+			<button type="submit">Add Task</button>
+		</form>
 
-    <div id="success-message" class="success" style="display: none;"></div>
+		<div id="success-message" class="success" style="display: none;"></div>
 
-    <a th:href="@{/View}">📋 View All Tasks</a>
-  </div>
+		<a th:href="@{/View}">📋 View All Tasks</a>
+	</div>
 
-  <script>
-    function validateForm() {
-      const taskInput = document.getElementById('work');
-      const errorMessage = document.getElementById('error-message');
-      const successMessage = document.getElementById('success-message');
+	<script>
+		function validateForm() {
+			const taskInput = document.getElementById('work');
+			const errorMessage = document.getElementById('error-message');
+			const successMessage = document.getElementById('success-message');
 
-      // Clear previous messages
-      errorMessage.textContent = '';
-      successMessage.style.display = 'none';
+			// Clear previous messages
+			errorMessage.textContent = '';
+			successMessage.style.display = 'none';
 
-      // Validate input
-      if (taskInput.value.trim() === '') {
-        errorMessage.textContent = 'Task cannot be empty.';
-        return false; // Prevent form submission
-      }
+			// Validate input
+			if (taskInput.value.trim() === '') {
+				errorMessage.textContent = 'Task cannot be empty.';
+				return false; // Prevent form submission
+			}
 
-      // If validation passes, show success message
-      successMessage.textContent = 'Task added successfully!';
-      successMessage.style.display = 'block';
+			// If validation passes, show success message
+			successMessage.textContent = 'Task added successfully!';
+			successMessage.style.display = 'block';
 
-      // Allow form submission
-      return true;
-    }
-  </script>
+			// Allow form submission
+			return true;
+		}
+	</script>
 </body>
+
 </html>
