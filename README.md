@@ -102,7 +102,3 @@ spring.datasource.url=jdbc:mysql://localhost:3306/your_db
 spring.datasource.username=root
 spring.datasource.password=your_password
 Run the application:
-
-bash
-Copy
-Edit
