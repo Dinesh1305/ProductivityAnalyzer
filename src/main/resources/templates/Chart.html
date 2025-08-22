@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sales Report</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f9;
+      text-align: center;
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .chart-container {
+      width: 70%;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h2>📊 Sales Report</h2>
+  <div class="chart-container">
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <script>
+    // Fetch data from Spring Boot API
+    fetch('/api/chart/sales')
+      .then(response => response.json())
+      .then(data => {
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        // Create gradient color
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(54, 162, 235, 0.8)');
+        gradient.addColorStop(1, 'rgba(75, 192, 192, 0.3)');
+
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: data.labels,
+            datasets: [{
+              label: 'Sales',
+              data: data.data,
+              backgroundColor: gradient,
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 2,
+              borderRadius: 8,  // rounded bars
+              hoverBackgroundColor: 'rgba(255, 159, 64, 0.8)',
+              hoverBorderColor: 'rgba(255, 159, 64, 1)'
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                labels: {
+                  font: { size: 14, weight: 'bold' },
+                  color: '#444'
+                }
+              },
+              title: {
+                display: true,
+                text: 'Monthly Sales Overview',
+                font: { size: 18, weight: 'bold' },
+                color: '#222',
+                padding: { top: 10, bottom: 20 }
+              },
+              tooltip: {
+                backgroundColor: '#333',
+                titleColor: '#fff',
+                bodyColor: '#fff',
+                padding: 12,
+                cornerRadius: 8
+              }
+            },
+            scales: {
+              x: {
+                grid: { color: 'rgba(200, 200, 200, 0.2)' },
+                ticks: { font: { size: 13 } }
+              },
+              y: {
+                beginAtZero: true,
+                grid: { color: 'rgba(200, 200, 200, 0.2)' },
+                ticks: { font: { size: 13 } }
+              }
+            }
+          }
+        });
+      });
+  </script>
+</body>
+</html>

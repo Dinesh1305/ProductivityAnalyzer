@@ -58,5 +58,14 @@ public class HomeController {
 	public String filterByDate() {
 		return "FilterByDate";
 	}
+	
+	
+	  
+    @GetMapping("/chart2")
+    public String  get()
+    {
+    	
+    	return "Chart";
+    }
 
 }
