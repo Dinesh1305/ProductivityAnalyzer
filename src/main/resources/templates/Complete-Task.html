@@ -1,174 +1,179 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Completed Tasks</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #1976d2;
-      --primary-dark: #155a9c;
-      --bg: #f0f4f8;
-      --text: #2f3e46;
-      --card: #fff;
-      --shadow: rgba(0, 0, 0, 0.08);
-    }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Completed Tasks</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--primary: #1976d2;
+			--primary-dark: #155a9c;
+			--bg: #f0f4f8;
+			--text: #2f3e46;
+			--card: #fff;
+			--shadow: rgba(0, 0, 0, 0.08);
+		}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      padding: 20px;
-    }
+		body {
+			font-family: 'Inter', sans-serif;
+			background: var(--bg);
+			padding: 20px;
+		}
 
-    .container {
-      background: var(--card);
-      padding: 40px;
-      max-width: 1000px;
-      margin: auto;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px var(--shadow);
-      transition: box-shadow 0.3s ease;
-    }
+		.container {
+			background: var(--card);
+			padding: 40px;
+			max-width: 1000px;
+			margin: auto;
+			border-radius: 16px;
+			box-shadow: 0 8px 24px var(--shadow);
+			transition: box-shadow 0.3s ease;
+		}
 
-    .container:hover {
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
-    }
+		.container:hover {
+			box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+		}
 
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 28px;
-    }
+		.header {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 12px;
+			margin-bottom: 28px;
+		}
 
-    .header-icon {
-      font-size: 24px;
-      background: var(--primary);
-      color: white;
-      padding: 10px;
-      border-radius: 50%;
-      box-shadow: 0 4px 12px var(--shadow);
-    }
+		.header-icon {
+			font-size: 24px;
+			background: var(--primary);
+			color: white;
+			padding: 10px;
+			border-radius: 50%;
+			box-shadow: 0 4px 12px var(--shadow);
+		}
 
-    h1 {
-      color: var(--text);
-      font-size: 2.4rem;
-      text-align: center;
-      letter-spacing: 0.5px;
-    }
+		h1 {
+			color: var(--text);
+			font-size: 2.4rem;
+			text-align: center;
+			letter-spacing: 0.5px;
+		}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-top: 20px;
+		}
 
-    th, td {
-      padding: 16px 12px;
-      text-align: center;
-      border-bottom: 1px solid #e0e0e0;
-      font-size: 1rem;
-    }
+		th,
+		td {
+			padding: 16px 12px;
+			text-align: center;
+			border-bottom: 1px solid #e0e0e0;
+			font-size: 1rem;
+		}
 
-    th {
-      background-color: var(--primary);
-      color: white;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
+		th {
+			background-color: var(--primary);
+			color: white;
+			text-transform: uppercase;
+			letter-spacing: 0.03em;
+		}
 
-    tr:hover {
-      background-color: #f9fbff;
-      box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.04);
-    }
+		tr:hover {
+			background-color: #f9fbff;
+			box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.04);
+		}
 
-    .duration-badge {
-      display: inline-block;
-      background: #e3f2fd;
-      color: #0d47a1;
-      padding: 6px 12px;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
+		.duration-badge {
+			display: inline-block;
+			background: #e3f2fd;
+			color: #0d47a1;
+			padding: 6px 12px;
+			border-radius: 50px;
+			font-size: 0.9rem;
+			font-weight: 500;
+		}
 
-    .back-link {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 12px 20px;
-      background-color: var(--primary);
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
+		.back-link {
+			display: inline-block;
+			margin-top: 30px;
+			padding: 12px 20px;
+			background-color: var(--primary);
+			color: white;
+			border-radius: 8px;
+			text-decoration: none;
+			font-weight: 600;
+			transition: background-color 0.3s ease, transform 0.2s ease;
+		}
 
-    .back-link:hover {
-      background-color: var(--primary-dark);
-      transform: translateY(-2px);
-    }
+		.back-link:hover {
+			background-color: var(--primary-dark);
+			transform: translateY(-2px);
+		}
 
-    @media (max-width: 600px) {
-      th, td {
-        font-size: 0.9rem;
-        padding: 12px 8px;
-      }
+		@media (max-width: 600px) {
 
-      .container {
-        padding: 24px;
-      }
+			th,
+			td {
+				font-size: 0.9rem;
+				padding: 12px 8px;
+			}
 
-      h1 {
-        font-size: 1.7rem;
-      }
-    }
-  </style>
+			.container {
+				padding: 24px;
+			}
+
+			h1 {
+				font-size: 1.7rem;
+			}
+		}
+	</style>
 </head>
+
 <body>
 
-  <div class="container">
-    <div class="header">
-      <div class="header-icon">✅</div>
-      <h1>Tasks Logs</h1>
-    </div>
+	<div class="container">
+		<div class="header">
+			<div class="header-icon">✅</div>
+			<h1>Tasks Logs</h1>
+		</div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Work</th>
-          <th>Total Duration</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="task : ${List}">
-          <td th:text="${task.work}"></td>
-          <td>
-            <span class="duration-badge"
-                  th:if="${#strings.substringBefore(task.totalDuration, ' ') != '0'}"
-                  th:text="${#strings.substringBefore(task.totalDuration, ' ') + ' day(s) '}"></span>
-            <span th:text="${#strings.substringAfter(task.totalDuration, ' day(s) ')}"></span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+		<table>
+			<thead>
+				<tr>
+					<th>Work</th>
+					<th>Total Duration</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="task : ${List}">
+					<td th:text="${task.work}"></td>
+					<td>
+						<span class="duration-badge" th:if="${#strings.substringBefore(task.totalDuration, ' ') != '0'}"
+							th:text="${#strings.substringBefore(task.totalDuration, ' ') + ' day(s) '}"></span>
+						<span th:text="${#strings.substringAfter(task.totalDuration, ' day(s) ')}"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 
-    <a href="/index" class="back-link" onclick="return confirmNavigation()">← Back to All Tasks</a>
-  </div>
+		<a href="/index" class="back-link" onclick="return confirmNavigation()">← Back to All Tasks</a>
+	</div>
 
-  <script>
-    function confirmNavigation() {
-      return confirm("Are you sure you want to go back to the All Tasks page?");
-    }
-  </script>
+	<script>
+		function confirmNavigation() {
+			return confirm("Are you sure you want to go back to the All Tasks page?");
+		}
+	</script>
 
 </body>
+
 </html>

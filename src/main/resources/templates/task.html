@@ -1,117 +1,127 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Completed Tasks</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #e7f3ff; /* Light blue background */
-      margin: 0;
-      padding: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: start;
-      min-height: 100vh;
-    }
+	<meta charset="UTF-8" />
+	<title>Completed Tasks</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+	<style>
+		body {
+			font-family: 'Inter', sans-serif;
+			background-color: #e7f3ff;
+			/* Light blue background */
+			margin: 0;
+			padding: 24px;
+			display: flex;
+			justify-content: center;
+			align-items: start;
+			min-height: 100vh;
+		}
 
-    .container {
-      max-width: 800px;
-      width: 100%;
-      background: #ffffff;
-      padding: 32px;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    }
+		.container {
+			max-width: 800px;
+			width: 100%;
+			background: #ffffff;
+			padding: 32px;
+			border-radius: 16px;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+		}
 
-    h1 {
-      text-align: center;
-      color: #2c3e50; /* Darker blue for the title */
-      margin-bottom: 28px;
-      font-size: 1.8rem;
-    }
+		h1 {
+			text-align: center;
+			color: #2c3e50;
+			/* Darker blue for the title */
+			margin-bottom: 28px;
+			font-size: 1.8rem;
+		}
 
-    .task-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+		.task-list {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
 
-    .task-card {
-      padding: 20px;
-      background-color: #f9fbfe; /* Light background for task cards */
-      border-left: 5px solid #1976d2; /* Blue border */
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s ease;
-    }
+		.task-card {
+			padding: 20px;
+			background-color: #f9fbfe;
+			/* Light background for task cards */
+			border-left: 5px solid #1976d2;
+			/* Blue border */
+			border-radius: 10px;
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+			transition: transform 0.2s ease;
+		}
 
-    .task-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
-    }
+		.task-card:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			/* Enhanced shadow on hover */
+		}
 
-    .task-card p {
-      margin: 10px 0;
-      font-size: 15px;
-      color: #444;
-    }
+		.task-card p {
+			margin: 10px 0;
+			font-size: 15px;
+			color: #444;
+		}
 
-    .task-card strong {
-      color: #333;
-      font-weight: 600;
-    }
+		.task-card strong {
+			color: #333;
+			font-weight: 600;
+		}
 
-    .remove-btn {
-      background-color: #e53935;
-      color: white;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      margin-top: 12px;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
+		.remove-btn {
+			background-color: #e53935;
+			color: white;
+			border: none;
+			padding: 8px 14px;
+			border-radius: 6px;
+			cursor: pointer;
+			font-weight: 600;
+			margin-top: 12px;
+			transition: background-color 0.3s ease, transform 0.2s ease;
+		}
 
-    .remove-btn:hover {
-      background-color: #c62828;
-      transform: translateY(-2px);
-    }
+		.remove-btn:hover {
+			background-color: #c62828;
+			transform: translateY(-2px);
+		}
 
-    @media (max-width: 600px) {
-      .container {
-        padding: 24px 18px;
-      }
+		@media (max-width: 600px) {
+			.container {
+				padding: 24px 18px;
+			}
 
-      .task-card p {
-        font-size: 14px;
-      }
-    }
-  </style>
+			.task-card p {
+				font-size: 14px;
+			}
+		}
+	</style>
 </head>
+
 <body>
 
-<div class="container">
-  <h1>Completed Tasks</h1>
+	<div class="container">
+		<h1>Completed Tasks</h1>
 
-  <div class="task-list">
-    <div class="task-card" th:each="task : ${List}">
-      <p><strong>Work:</strong> <span th:text="${task.work}">Sample Work</span></p>
-      <p><strong>Start Time:</strong> <span th:text="${#dates.format(task.starting_time, 'hh:mm:ss a')}">00:00 AM</span></p>
-      <p><strong>End Time:</strong> <span th:text="${#dates.format(task.ending_time, 'hh:mm:ss a')}">00:00 AM</span></p>
-      <p><strong>Duration:</strong> <span th:text="${task.duration}">00h 00m 00s</span></p>
+		<div class="task-list">
+			<div class="task-card" th:each="task : ${List}">
+				<p><strong>Work:</strong> <span th:text="${task.work}">Sample Work</span></p>
+				<p><strong>Start Time:</strong> <span th:text="${#dates.format(task.starting_time, 'hh:mm:ss a')}">00:00
+						AM</span></p>
+				<p><strong>End Time:</strong> <span th:text="${#dates.format(task.ending_time, 'hh:mm:ss a')}">00:00
+						AM</span></p>
+				<p><strong>Duration:</strong> <span th:text="${task.duration}">00h 00m 00s</span></p>
 
-      <!-- ✅ Remove button -->
-      <form th:action="@{/removeTask/{id}(id=${task.id})}" method="post"
-            onsubmit="return confirm('Are you sure you want to remove this task?');">
-        <button type="submit" class="remove-btn">Remove</button>
-      </form>
-    </div>
-  </div>
-</div>
+				<!-- ✅ Remove button -->
+				<form th:action="@{/removeTask/{id}(id=${task.id})}" method="post"
+					onsubmit="return confirm('Are you sure you want to remove this task?');">
+					<button type="submit" class="remove-btn">Remove</button>
+				</form>
+			</div>
+		</div>
+	</div>
 
 </body>
+
 </html>

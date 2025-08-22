@@ -1,119 +1,122 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Filter Tasks by Date</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f0f4f8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
-    }
+	<meta charset="UTF-8">
+	<title>Filter Tasks by Date</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+	<style>
+		body {
+			font-family: 'Inter', sans-serif;
+			background-color: #f0f4f8;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			margin: 0;
+			padding: 20px;
+		}
 
-    .container {
-      background-color: #ffffff;
-      padding: 36px 28px;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      text-align: center;
-      width: 100%;
-      max-width: 400px;
-      transition: transform 0.3s ease;
-    }
+		.container {
+			background-color: #ffffff;
+			padding: 36px 28px;
+			border-radius: 16px;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+			text-align: center;
+			width: 100%;
+			max-width: 400px;
+			transition: transform 0.3s ease;
+		}
 
-    .container:hover {
-      transform: scale(1.02);
-    }
+		.container:hover {
+			transform: scale(1.02);
+		}
 
-    h2 {
-      margin-bottom: 24px;
-      color: #2c3e50;
-      font-size: 1.8rem;
-    }
+		h2 {
+			margin-bottom: 24px;
+			color: #2c3e50;
+			font-size: 1.8rem;
+		}
 
-    form {
-      display: flex;
-      flex-direction: column;
-    }
+		form {
+			display: flex;
+			flex-direction: column;
+		}
 
-    input[type="date"] {
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      margin-bottom: 20px;
-      font-size: 15px;
-      transition: border-color 0.3s ease;
-    }
+		input[type="date"] {
+			padding: 12px;
+			border-radius: 8px;
+			border: 1px solid #ccc;
+			margin-bottom: 20px;
+			font-size: 15px;
+			transition: border-color 0.3s ease;
+		}
 
-    input[type="date"]:focus {
-      border-color: #1976d2;
-      outline: none;
-    }
+		input[type="date"]:focus {
+			border-color: #1976d2;
+			outline: none;
+		}
 
-    button {
-      background: linear-gradient(to right, #1976d2, #1565c0);
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+		button {
+			background: linear-gradient(to right, #1976d2, #1565c0);
+			color: white;
+			padding: 12px;
+			border: none;
+			border-radius: 8px;
+			font-size: 16px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background 0.3s ease;
+		}
 
-    button:hover {
-      background: linear-gradient(to right, #1565c0, #0d47a1);
-    }
+		button:hover {
+			background: linear-gradient(to right, #1565c0, #0d47a1);
+		}
 
-    @media (max-width: 500px) {
-      .container {
-        padding: 28px 20px;
-      }
+		@media (max-width: 500px) {
+			.container {
+				padding: 28px 20px;
+			}
 
-      h2 {
-        font-size: 1.5rem;
-      }
+			h2 {
+				font-size: 1.5rem;
+			}
 
-      input[type="date"] {
-        font-size: 14px;
-      }
+			input[type="date"] {
+				font-size: 14px;
+			}
 
-      button {
-        font-size: 15px;
-      }
-    }
-  </style>
+			button {
+				font-size: 15px;
+			}
+		}
+	</style>
 </head>
+
 <body>
 
-  <div class="container">
-    <h2>Filter Tasks by Date</h2>
-    <form th:action="@{/date}" method="get" onsubmit="return validateDate()">
-      <input type="date" name="startDate" required />
-      <button type="submit">Filter</button>
-    </form>
-  </div>
+	<div class="container">
+		<h2>Filter Tasks by Date</h2>
+		<form th:action="@{/date}" method="get" onsubmit="return validateDate()">
+			<input type="date" name="startDate" required />
+			<button type="submit">Filter</button>
+		</form>
+	</div>
 
-  <script>
-    function validateDate() {
-      const startDate = document.querySelector('input[name="startDate"]').value;
-      const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+	<script>
+		function validateDate() {
+			const startDate = document.querySelector('input[name="startDate"]').value;
+			const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
 
-      if (startDate > today) {
-        alert("The selected date cannot be in the future.");
-        return false; // Prevent form submission
-      }
-      return true; // Allow form submission
-    }
-  </script>
+			if (startDate > today) {
+				alert("The selected date cannot be in the future.");
+				return false; // Prevent form submission
+			}
+			return true; // Allow form submission
+		}
+	</script>
 
 </body>
+
 </html>
