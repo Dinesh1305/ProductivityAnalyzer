@@ -21,6 +21,9 @@ public class TaskService {
 	
 	public void save(Task t)
 	{
+		
+		long size =task.count();
+		if(size==0)
 		task.save(t);
 	}
 
