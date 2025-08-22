@@ -7,22 +7,35 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f4f6f9;
+      background: #e9ecef;
       text-align: center;
       padding: 20px;
     }
     h2 {
-      color: #333;
-      font-weight: 600;
+      color: #343a40;
+      font-weight: 700;
       margin-bottom: 20px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
     .chart-container {
-      width: 75%;
+      width: 90%;
+      max-width: 800px;
       margin: auto;
-      background: #fff;
+      background: #ffffff;
       padding: 20px;
       border-radius: 16px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #6c757d;
+    }
+    .chartjs-render-monitor {
+      transition: transform 0.2s;
+    }
+    .chartjs-render-monitor:hover {
+      transform: scale(1.05);
     }
   </style>
 </head>
@@ -31,6 +44,9 @@
   <div class="chart-container">
     <canvas id="myChart"></canvas>
   </div>
+  <footer>
+    <p>Data represents the total work duration for each task completed today.</p>
+  </footer>
 
   <script>
     // Helper function to convert seconds → HH:MM:SS
