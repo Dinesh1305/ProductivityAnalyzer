@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.model.CompleteTasks;
 import com.demo.model.Tasks;
+import com.demo.repository.CompleteTaskRepo;
 import com.demo.service.CompleteTaskService;
 
 @RestController
@@ -22,7 +23,8 @@ public class ChartController {
 	@Autowired
 	CompleteTaskService service;
 	
-	
+	@Autowired
+	CompleteTaskRepo repo;
 
 
     
@@ -32,8 +34,7 @@ public class ChartController {
 
         List<Tasks>t=service.getToday();
         
-        System.out.println(t);
-        
+
         
         List<String>work=new ArrayList<>();
         
@@ -62,7 +63,8 @@ public class ChartController {
         List<Tasks>t=service.getWeek();
         
         System.out.println(t);
-        
+        System.out.println(t);
+        List<Tasks>t2=repo.getFullList();
         
         List<String>work=new ArrayList<>();
         
@@ -91,10 +93,10 @@ public class ChartController {
         List<Tasks>t=service.getAll();
         
      //  System.out.println(t);
-        List<CompleteTasks>t1=service.getall();
+        List<Tasks>t1=repo.getFullList();
        
         
-        for(Tasks y:t)
+        for(Tasks y:t1)
         {
         	 System.out.println(y);
         }
@@ -103,7 +105,7 @@ public class ChartController {
         
         List<Long>duration=new ArrayList<>();
         
-        for(Tasks temp:t)
+        for(Tasks temp:t1)
         {
         	work.add(temp.getWork());
         	
