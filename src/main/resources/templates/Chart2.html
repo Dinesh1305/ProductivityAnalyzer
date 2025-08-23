@@ -18,7 +18,7 @@
     .chart-container {
       width: 90%;
       max-width: 1200px;
-      height: 500px; /* bigger chart height */
+      height: 500px;
       margin: auto;
       background: #fff;
       border-radius: 16px;
@@ -45,9 +45,15 @@
 
         const labels = result.labels;
         const rawSeconds = result.data; 
-        const data = rawSeconds.map(seconds => seconds / 86400); // Y-axis in days
+        const data = rawSeconds.map(seconds => seconds / 86400); // convert to days
 
         const ctx = document.getElementById("workChart").getContext("2d");
+
+        // Create gradient (blue → light blue)
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, "rgba(54, 162, 235, 0.9)");   // top (blue)
+        gradient.addColorStop(1, "rgba(173, 216, 230, 0.4)"); // bottom (light blue)
+
         new Chart(ctx, {
           type: "bar",
           data: {
@@ -55,23 +61,16 @@
             datasets: [{
               label: "Work Duration",
               data: data,
-              backgroundColor: [
-                "rgba(54, 162, 235, 0.7)",
-                "rgba(255, 159, 64, 0.7)",
-                "rgba(75, 192, 192, 0.7)",
-                "rgba(153, 102, 255, 0.7)",
-                "rgba(255, 205, 86, 0.7)",
-                "rgba(201, 203, 207, 0.7)"
-              ],
-              borderRadius: 12,
-              borderSkipped: false,
+              backgroundColor: gradient,
+              borderColor: "rgba(54, 162, 235, 1)",
               borderWidth: 1,
-              borderColor: "#fff"
+              borderRadius: 10,
+              borderSkipped: false
             }]
           },
           options: {
             responsive: true,
-            maintainAspectRatio: false,  // allows flexible size
+            maintainAspectRatio: false,
             plugins: {
               title: {
                 display: true,
@@ -97,7 +96,7 @@
             },
             animation: {
               duration: 1500,
-              easing: "easeOutBounce"
+              easing: "easeOutCubic"
             },
             scales: {
               y: {
