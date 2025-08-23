@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Work Duration Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fbfd;
+      color: #1e3a8a;
+      text-align: center;
+      padding: 20px;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    .chart-container {
+      width: 90%;
+      max-width: 1200px;
+      height: 500px;
+      margin: auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+  </style>
+</head>
+<body>
+  <h2>📊 Work Duration (Full List - Days + Hours)</h2>
+  <div class="chart-container">
+    <canvas id="workChart"></canvas>
+  </div>
+
+  <script>
+    async function loadChart() {
+      try {
+        const response = await fetch("http://localhost:9000/api/chart/full");
+        const result = await response.json();
+
+        const labels = result.labels;
+        const rawSeconds = result.data; 
+        const data = rawSeconds.map(seconds => seconds / 86400); // convert to days
+
+        const ctx = document.getElementById("workChart").getContext("2d");
+
+        // Create gradient (blue → light blue)
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, "rgba(54, 162, 235, 0.9)");   // top (blue)
+        gradient.addColorStop(1, "rgba(173, 216, 230, 0.4)"); // bottom (light blue)
+
+        new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: labels,
+            datasets: [{
+              label: "Work Duration",
+              data: data,
+              backgroundColor: gradient,
+              borderColor: "rgba(54, 162, 235, 1)",
+              borderWidth: 1,
+              borderRadius: 10,
+              borderSkipped: false
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              title: {
+                display: true,
+                text: "Work Duration Analysis",
+                font: { size: 22, weight: "bold" },
+                padding: { top: 10, bottom: 30 }
+              },
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: "#1e3a8a",
+                titleColor: "#fff",
+                bodyColor: "#fff",
+                callbacks: {
+                  label: function(context) {
+                    const seconds = rawSeconds[context.dataIndex];
+                    const days = Math.floor(seconds / 86400);
+                    const hours = Math.floor((seconds % 86400) / 3600);
+                    const minutes = Math.floor((seconds % 3600) / 60);
+                    return `${days} day(s) ${hours} hr(s) ${minutes} min(s)`;
+                  }
+                }
+              }
+            },
+            animation: {
+              duration: 1500,
+              easing: "easeOutCubic"
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: { display: true, text: "Days", font: { weight: "bold" } },
+                grid: { color: "rgba(0,0,0,0.05)" }
+              },
+              x: {
+                title: { display: true, text: "Work Type", font: { weight: "bold" } },
+                grid: { display: false }
+              }
+            }
+          }
+        });
+      } catch (error) {
+        console.error("Error loading chart:", error);
+      }
+    }
+
+    loadChart();
+  </script>
+</body>
+</html>

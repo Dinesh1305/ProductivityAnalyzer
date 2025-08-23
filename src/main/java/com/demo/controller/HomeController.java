@@ -61,19 +61,28 @@ public class HomeController {
 	
 	
 	  
-    @GetMapping("/chart2")
+    @GetMapping("/progress")
     public String  get()
     {
     	
-    	return "Chart";
+    	return "list";
     }
     
-    @GetMapping("/chart3")
-    public String  get2()
-    {
-    	
-    	return "Chart2";
+    @GetMapping("/chart")
+    public String chart1() {
+        return "Chart"; // Chart1.html or Chart1.jsp
     }
+
+    @GetMapping("/chart2")
+    public String chart2() {
+        return "Chart2";
+    }
+
+    @GetMapping("/chart3")
+    public String chart3() {
+        return "Chart3";
+    }
+    
 
 
     
