@@ -4,10 +4,38 @@
   <meta charset="UTF-8">
   <title>Work Duration Chart</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fbfd;
+      color: #1e3a8a;
+      text-align: center;
+      padding: 20px;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    .chart-container {
+      width: 90%;
+      max-width: 1200px;
+      height: 500px; /* bigger chart height */
+      margin: auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+  </style>
 </head>
 <body>
   <h2>📊 Work Duration (Full List - Days + Hours)</h2>
-  <canvas id="workChart"></canvas>
+  <div class="chart-container">
+    <canvas id="workChart"></canvas>
+  </div>
 
   <script>
     async function loadChart() {
@@ -16,8 +44,8 @@
         const result = await response.json();
 
         const labels = result.labels;
-        const rawSeconds = result.data; // keep original seconds
-        const data = rawSeconds.map(seconds => seconds / 86400); // display in days on Y-axis
+        const rawSeconds = result.data; 
+        const data = rawSeconds.map(seconds => seconds / 86400); // Y-axis in days
 
         const ctx = document.getElementById("workChart").getContext("2d");
         new Chart(ctx, {
@@ -25,34 +53,61 @@
           data: {
             labels: labels,
             datasets: [{
-              label: "Work Duration (Days)",
+              label: "Work Duration",
               data: data,
-              backgroundColor: "rgba(153, 102, 255, 0.6)",
-              borderColor: "rgba(153, 102, 255, 1)",
-              borderWidth: 1
+              backgroundColor: [
+                "rgba(54, 162, 235, 0.7)",
+                "rgba(255, 159, 64, 0.7)",
+                "rgba(75, 192, 192, 0.7)",
+                "rgba(153, 102, 255, 0.7)",
+                "rgba(255, 205, 86, 0.7)",
+                "rgba(201, 203, 207, 0.7)"
+              ],
+              borderRadius: 12,
+              borderSkipped: false,
+              borderWidth: 1,
+              borderColor: "#fff"
             }]
           },
           options: {
             responsive: true,
+            maintainAspectRatio: false,  // allows flexible size
             plugins: {
+              title: {
+                display: true,
+                text: "Work Duration Analysis",
+                font: { size: 22, weight: "bold" },
+                padding: { top: 10, bottom: 30 }
+              },
+              legend: { display: false },
               tooltip: {
+                backgroundColor: "#1e3a8a",
+                titleColor: "#fff",
+                bodyColor: "#fff",
                 callbacks: {
                   label: function(context) {
                     const seconds = rawSeconds[context.dataIndex];
                     const days = Math.floor(seconds / 86400);
                     const hours = Math.floor((seconds % 86400) / 3600);
-                    return `${days} day(s) ${hours} hr(s)`;
+                    const minutes = Math.floor((seconds % 3600) / 60);
+                    return `${days} day(s) ${hours} hr(s) ${minutes} min(s)`;
                   }
                 }
               }
             },
+            animation: {
+              duration: 1500,
+              easing: "easeOutBounce"
+            },
             scales: {
               y: {
                 beginAtZero: true,
-                title: { display: true, text: "Days" }
+                title: { display: true, text: "Days", font: { weight: "bold" } },
+                grid: { color: "rgba(0,0,0,0.05)" }
               },
               x: {
-                title: { display: true, text: "Work Type" }
+                title: { display: true, text: "Work Type", font: { weight: "bold" } },
+                grid: { display: false }
               }
             }
           }
