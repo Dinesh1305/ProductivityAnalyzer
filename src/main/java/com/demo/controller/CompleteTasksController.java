@@ -48,7 +48,7 @@ public class CompleteTasksController {
 	@GetMapping("getAll")
 	public String findAll(Model m) {
 		List<Tasks> t = service.getAll();
-
+//System.out.println(t);
 		m.addAttribute("tasks", t);
 		return "duration";
 	}

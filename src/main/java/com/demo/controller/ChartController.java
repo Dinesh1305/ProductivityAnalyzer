@@ -82,6 +82,35 @@ public class ChartController {
 
 }
     
+    @GetMapping("/full")
+    public Map<String, Object> getFull() {
+        Map<String, Object> response = new HashMap<>();
+
+        List<Tasks>t=service.getAll();
+        
+    //    System.out.println(t);
+        
+        
+        List<String>work=new ArrayList<>();
+        
+        List<Long>duration=new ArrayList<>();
+        
+        for(Tasks temp:t)
+        {
+        	work.add(temp.getWork());
+        	
+        	duration.add(temp.getTotalSeconds());
+        }
+        // Labels for x-axis
+        response.put("labels", work);
+
+        // Data for y-axis
+        response.put("data", duration);
+
+        return response;
+
+}
+    
     
     
   
