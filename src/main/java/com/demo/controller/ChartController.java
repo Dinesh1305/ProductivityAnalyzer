@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.demo.model.CompleteTasks;
 import com.demo.model.Tasks;
 import com.demo.service.CompleteTaskService;
 
@@ -20,6 +21,7 @@ public class ChartController {
 
 	@Autowired
 	CompleteTaskService service;
+	
 	
 
 
@@ -88,8 +90,14 @@ public class ChartController {
 
         List<Tasks>t=service.getAll();
         
-    //    System.out.println(t);
+     //  System.out.println(t);
+        List<CompleteTasks>t1=service.getall();
+       
         
+        for(Tasks y:t)
+        {
+        	 System.out.println(y);
+        }
         
         List<String>work=new ArrayList<>();
         

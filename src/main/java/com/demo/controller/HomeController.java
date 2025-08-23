@@ -67,5 +67,14 @@ public class HomeController {
     	
     	return "Chart";
     }
+    
+    @GetMapping("/chart3")
+    public String  get2()
+    {
+    	
+    	return "Chart2";
+    }
 
+
+    
 }

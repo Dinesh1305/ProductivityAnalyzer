@@ -107,5 +107,26 @@ public interface CompleteTaskRepo extends JpaRepository<CompleteTasks, Integer> 
 			        work
 			""", nativeQuery = true)
 	List<Tasks> getByDate(@Param("date") Date date);
+	
+	
+	
+	@Query(
+		    value = """
+		        SELECT 
+		            work,
+		            SUM(TIMESTAMPDIFF(SECOND, starting_time, ending_time)) AS total_seconds
+		        FROM 
+		            complete_tasks
+		        WHERE 
+		            starting_time IS NOT NULL 
+		            AND ending_time IS NOT NULL
+		        GROUP BY 
+		            work
+		        """,
+		    nativeQuery = true
+		)
+		List<Tasks> getFullList();
+
+	
 
 }

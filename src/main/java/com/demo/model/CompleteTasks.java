@@ -84,4 +84,11 @@ public class CompleteTasks {
 		return String.format("%02dh %02dm %02ds", hrs, mins, secs);
 	}
 
+	@Override
+	public String toString() {
+		return "CompleteTasks [id=" + id + ", work=" + work + ", starting_time=" + starting_time + ", ending_time="
+				+ ending_time + ", createdDate=" + createdDate + "]";
+	}
+	
+
 }

@@ -4,82 +4,41 @@
   <meta charset="UTF-8">
   <title>Work Duration Chart</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background: #f4f6f9;
-      margin: 20px;
-    }
-    h2 {
-      margin-bottom: 20px;
-      color: #333;
-    }
-    #chart-container {
-      width: 90%;
-      max-width: 1000px;
-      margin: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-    }
-    canvas {
-      margin-top: 20px;
-    }
-  </style>
 </head>
 <body>
-  <h2>📊 Work Duration Analysis</h2>
-  <div id="chart-container">
-    <canvas id="workChart"></canvas>
-  </div>
+  <h2>📊 Work Duration (Full List)</h2>
+  <canvas id="workChart"></canvas>
 
   <script>
-    // Convert "X day(s) HH:MM:SS" → total hours
-    function parseDuration(durationStr) {
-      const regex = /(\d+)\sday\(s\)\s(\d+):(\d+):(\d+)/;
-      const match = durationStr.match(regex);
-      if (!match) return 0;
+    async function loadChart() {
+      try {
+        const response = await fetch("http://localhost:9000/api/chart/full");
+        const result = await response.json();
 
-      const days = parseInt(match[1]);
-      const hours = parseInt(match[2]);
-      const minutes = parseInt(match[3]);
-      const seconds = parseInt(match[4]);
-
-      return (days * 24) + hours + (minutes / 60) + (seconds / 3600);
-    }
-
-    // Fetch data from backend
-    fetch("/api/chart/full")
-      .then(res => res.json())
-      .then(data => {
-        const labels = data.map(item => item.work);
-        const durations = data.map(item => parseDuration(item.total_duration));
+        const labels = result.labels;
+        // Convert seconds → hours (keep as number, not string)
+        const data = result.data.map(seconds => seconds / 3600);
 
         const ctx = document.getElementById("workChart").getContext("2d");
-
         new Chart(ctx, {
-          type: "bar", // you can change to "pie", "line", "doughnut"
+          type: "bar",
           data: {
             labels: labels,
             datasets: [{
-              label: "Total Hours",
-              data: durations,
+              label: "Work Duration (Hours)",
+              data: data,
               backgroundColor: "rgba(75, 192, 192, 0.6)",
               borderColor: "rgba(75, 192, 192, 1)",
-              borderWidth: 1,
-              borderRadius: 8
+              borderWidth: 1
             }]
           },
           options: {
             responsive: true,
             plugins: {
-              legend: { display: false },
               tooltip: {
                 callbacks: {
                   label: function(context) {
-                    return context.raw.toFixed(2) + " hrs";
+                    return context.raw.toFixed(2) + " hrs"; // only here we format
                   }
                 }
               }
@@ -87,19 +46,20 @@
             scales: {
               y: {
                 beginAtZero: true,
-                title: {
-                  display: true,
-                  text: "Hours"
-                }
+                title: { display: true, text: "Hours" }
               },
               x: {
-                ticks: { autoSkip: false, maxRotation: 45, minRotation: 45 }
+                title: { display: true, text: "Work Type" }
               }
             }
           }
         });
-      })
-      .catch(err => console.error("Error fetching data:", err));
+      } catch (error) {
+        console.error("Error loading chart:", error);
+      }
+    }
+
+    loadChart();
   </script>
 </body>
 </html>
