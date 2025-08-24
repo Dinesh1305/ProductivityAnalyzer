@@ -7,35 +7,68 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #e9ecef;
-      text-align: center;
+      background: linear-gradient(135deg, #141E30, #243B55);
+      margin: 0;
       padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
     }
+
     h2 {
-      color: #343a40;
+      color: #ffffff;
       font-weight: 700;
-      margin-bottom: 20px;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      margin: 20px 0;
+      font-size: 2rem;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+      animation: fadeDown 1s ease;
     }
+
     .chart-container {
       width: 90%;
-      max-width: 800px;
+      max-width: 850px;
       margin: auto;
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      animation: fadeUp 1.2s ease;
     }
+
     footer {
-      margin-top: 20px;
+      margin-top: 25px;
       font-size: 14px;
-      color: #6c757d;
+      color: #d1d1d1;
+      text-align: center;
+      animation: fadeIn 1.5s ease;
     }
+
+    /* Chart hover scale effect */
     .chartjs-render-monitor {
-      transition: transform 0.2s;
+      transition: transform 0.25s ease;
     }
+
     .chartjs-render-monitor:hover {
-      transform: scale(1.05);
+      transform: scale(1.04);
+    }
+
+    /* Animations */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
@@ -45,11 +78,11 @@
     <canvas id="myChart"></canvas>
   </div>
   <footer>
-    <p>Data represents the total work duration for each task completed today.</p>
+    <p>📊 Data represents the total work duration for each task completed today.</p>
   </footer>
 
   <script>
-    // Helper function to convert seconds → HH:MM:SS
+    // Helper: Convert seconds → HH:MM:SS
     function formatTime(seconds) {
       const hrs = Math.floor(seconds / 3600);
       const mins = Math.floor((seconds % 3600) / 60);
@@ -57,29 +90,29 @@
       return `${hrs}h ${mins}m ${secs}s`;
     }
 
-    // Fetch data from Spring Boot API
+    // Fetch chart data
     fetch('/api/chart/today')
       .then(response => response.json())
       .then(data => {
         const ctx = document.getElementById('myChart').getContext('2d');
 
-        // Create gradient color
+        // Gradient colors for bars
         const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(54, 162, 235, 0.9)');
-        gradient.addColorStop(1, 'rgba(75, 192, 192, 0.3)');
+        gradient.addColorStop(0, 'rgba(0, 212, 255, 0.9)');
+        gradient.addColorStop(1, 'rgba(9, 121, 236, 0.3)');
 
         new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: data.labels,   // Work names
+            labels: data.labels,
             datasets: [{
-              label: 'Duration (in seconds)',
-              data: data.data,     // Numeric seconds from backend
+              label: 'Duration',
+              data: data.data,
               backgroundColor: gradient,
-              borderColor: 'rgba(54, 162, 235, 1)',
+              borderColor: 'rgba(0, 212, 255, 1)',
               borderWidth: 2,
-              borderRadius: 8,
-              hoverBackgroundColor: 'rgba(255, 159, 64, 0.8)',
+              borderRadius: 10,
+              hoverBackgroundColor: 'rgba(255, 159, 64, 0.9)',
               hoverBorderColor: 'rgba(255, 159, 64, 1)'
             }]
           },
@@ -89,41 +122,42 @@
               legend: {
                 labels: {
                   font: { size: 14, weight: 'bold' },
-                  color: '#444'
+                  color: '#f1f1f1'
                 }
               },
               title: {
                 display: true,
                 text: 'Today’s Work Duration (HH:MM:SS)',
                 font: { size: 18, weight: 'bold' },
-                color: '#222',
+                color: '#ffffff',
                 padding: { top: 10, bottom: 20 }
               },
               tooltip: {
-                backgroundColor: '#333',
+                backgroundColor: '#222',
                 titleColor: '#fff',
                 bodyColor: '#fff',
                 padding: 12,
                 cornerRadius: 8,
                 callbacks: {
                   label: function(context) {
-                    return formatTime(context.raw); // Show HH:MM:SS in tooltip
+                    return formatTime(context.raw);
                   }
                 }
               }
             },
             scales: {
               x: {
-                grid: { color: 'rgba(200, 200, 200, 0.2)' },
-                ticks: { font: { size: 13 } }
+                grid: { color: 'rgba(255,255,255,0.1)' },
+                ticks: { font: { size: 13 }, color: '#e0e0e0' }
               },
               y: {
                 beginAtZero: true,
-                grid: { color: 'rgba(200, 200, 200, 0.2)' },
+                grid: { color: 'rgba(255,255,255,0.1)' },
                 ticks: {
                   font: { size: 13 },
+                  color: '#e0e0e0',
                   callback: function(value) {
-                    return formatTime(value); // Show HH:MM:SS on y-axis
+                    return formatTime(value);
                   }
                 }
               }
