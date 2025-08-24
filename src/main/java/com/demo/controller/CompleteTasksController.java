@@ -78,7 +78,7 @@ public class CompleteTasksController {
 
 		m.addAttribute("tasks", service.filterByDate(t));
 
-		return "duration-summary";
+		return "duration";
 	}
 
 	@PostMapping("/removeTask/{id}")
