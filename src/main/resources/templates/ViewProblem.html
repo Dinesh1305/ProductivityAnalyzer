@@ -6,48 +6,35 @@
 	<title>Problem List</title>
 	<style>
 		body {
-			font-family: Arial, sans-serif;
-			background-color: #f0f2f5;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background: linear-gradient(135deg, #141E30, #243B55);
 			margin: 0;
 			padding: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
 		}
 
 		.container {
-			max-width: 600px;
-			margin: 40px auto;
-			background: white;
-			padding: 20px;
-			border-radius: 10px;
-			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+			max-width: 700px;
+			width: 90%;
+			background: rgba(255, 255, 255, 0.95);
+			padding: 25px;
+			border-radius: 15px;
+			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+		}
+
+		.container:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
 		}
 
 		h1 {
 			text-align: center;
-		}
-
-		form {
-			display: flex;
-			flex-direction: column;
-			gap: 10px;
+			color: #243B55;
 			margin-bottom: 20px;
-		}
-
-		input,
-		button {
-			padding: 10px;
-			border-radius: 5px;
-			border: 1px solid #ccc;
-			font-size: 16px;
-		}
-
-		button {
-			background-color: #007bff;
-			color: white;
-			cursor: pointer;
-		}
-
-		button:hover {
-			background-color: #0056b3;
 		}
 
 		ul {
@@ -56,30 +43,79 @@
 		}
 
 		li {
-			padding: 10px;
-			border-bottom: 1px solid #eee;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 12px 15px;
+			margin: 10px 0;
+			background: rgba(0, 123, 255, 0.08);
+			border-radius: 8px;
+			transition: background 0.3s ease, transform 0.2s ease;
+		}
+
+		li:hover {
+			background: rgba(0, 123, 255, 0.15);
+			transform: scale(1.02);
+		}
+
+		.problem-info {
+			flex: 1;
+		}
+
+		.problem-info strong {
+			color: #141E30;
 		}
 
 		a {
 			color: #007bff;
 			text-decoration: none;
+			font-weight: 500;
 		}
 
 		a:hover {
 			text-decoration: underline;
+			color: #0056b3;
+		}
+
+		.remove-form {
+			margin-left: 15px;
+		}
+
+		.remove-form button {
+			background: rgba(220, 53, 69, 0.85);
+			border: none;
+			padding: 8px 14px;
+			border-radius: 6px;
+			color: white;
+			font-size: 14px;
+			cursor: pointer;
+			transition: background 0.3s ease, transform 0.2s ease;
+		}
+
+		.remove-form button:hover {
+			background: rgba(200, 35, 51, 0.95);
+			transform: scale(1.05);
 		}
 	</style>
 </head>
 
 <body>
 	<div class="container">
-		<h1>Programming Problems</h1>
+		<h1>📘 Programming Problems</h1>
 		<ul>
 			<li th:each="p : ${problems}">
-				<strong th:text="${p.name}"></strong>:
-				<a th:href="${p.url}" th:text="${p.url}" target="_blank"></a>
-			</li>
-		</ul>
+			            <a th:href="${p.url}" th:text="${p.name}" target="_blank" class="problem-link"></a>
+
+			            <form th:action="@{/remove}" method="post" class="remove-form">
+			                <!-- Using name instead of id -->
+			                <input type="hidden" name="name" th:value="${p.name}" />
+			                <button type="submit" class="remove-btn">Remove</button>
+			            </form>
+			        </li>
+				
+						</ul>
+
+
 	</div>
 </body>
 

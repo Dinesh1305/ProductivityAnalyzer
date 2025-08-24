@@ -8,12 +8,11 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 	<style>
 		:root {
-			--primary: #1976d2;
-			--primary-dark: #155a9c;
-			--bg: #f0f4f8;
-			--text: #2f3e46;
-			--card: #fff;
-			--shadow: rgba(0, 0, 0, 0.08);
+			--primary: #4a90e2;
+			--primary-dark: #357ab8;
+			--success: #4caf50;
+			--warning: #ff9800;
+			--danger: #e53935;
 		}
 
 		* {
@@ -24,22 +23,30 @@
 
 		body {
 			font-family: 'Inter', sans-serif;
-			background: var(--bg);
+			background: linear-gradient(135deg, #141E30, #243B55);
+			color: #f1f5f9;
 			padding: 20px;
+			min-height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 
 		.container {
-			background: var(--card);
+			background: rgba(255, 255, 255, 0.08);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
 			padding: 40px;
 			max-width: 1000px;
+			width: 100%;
 			margin: auto;
-			border-radius: 16px;
-			box-shadow: 0 8px 24px var(--shadow);
-			transition: box-shadow 0.3s ease;
+			border-radius: 20px;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+			transition: transform 0.3s ease;
 		}
 
 		.container:hover {
-			box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+			transform: scale(1.01);
 		}
 
 		.header {
@@ -56,74 +63,97 @@
 			color: white;
 			padding: 10px;
 			border-radius: 50%;
-			box-shadow: 0 4px 12px var(--shadow);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 		}
 
 		h1 {
-			color: var(--text);
-			font-size: 2.4rem;
+			font-size: 2.2rem;
 			text-align: center;
 			letter-spacing: 0.5px;
+			color: #fff;
 		}
 
 		table {
 			width: 100%;
 			border-collapse: collapse;
 			margin-top: 20px;
+			border-radius: 12px;
+			overflow: hidden;
 		}
 
 		th,
 		td {
 			padding: 16px 12px;
 			text-align: center;
-			border-bottom: 1px solid #e0e0e0;
 			font-size: 1rem;
 		}
 
 		th {
-			background-color: var(--primary);
-			color: white;
+			background: rgba(74, 144, 226, 0.5);
+			color: #fff;
 			text-transform: uppercase;
-			letter-spacing: 0.03em;
+			letter-spacing: 0.05em;
 		}
 
-		tr:hover {
-			background-color: #f9fbff;
-			box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.04);
+		td {
+			background: rgba(255, 255, 255, 0.05);
+			color: #e0e0e0;
+			transition: background 0.3s ease;
+		}
+
+		tr:hover td {
+			background: rgba(255, 255, 255, 0.12);
 		}
 
 		.duration-badge {
 			display: inline-block;
-			background: #e3f2fd;
-			color: #0d47a1;
-			padding: 6px 12px;
+			padding: 6px 14px;
 			border-radius: 50px;
 			font-size: 0.9rem;
-			font-weight: 500;
+			font-weight: 600;
+		}
+
+		/* color coding */
+		.duration-badge[data-type="short"] {
+			background: rgba(76, 175, 80, 0.2);
+			color: var(--success);
+		}
+
+		.duration-badge[data-type="medium"] {
+			background: rgba(255, 152, 0, 0.2);
+			color: var(--warning);
+		}
+
+		.duration-badge[data-type="long"] {
+			background: rgba(229, 57, 53, 0.2);
+			color: var(--danger);
 		}
 
 		.back-link {
 			display: inline-block;
 			margin-top: 30px;
 			padding: 12px 20px;
-			background-color: var(--primary);
-			color: white;
-			border-radius: 8px;
+			background: rgba(74, 144, 226, 0.2);
+			color: #fff;
+			border-radius: 12px;
 			text-decoration: none;
 			font-weight: 600;
-			transition: background-color 0.3s ease, transform 0.2s ease;
+			transition: all 0.3s ease;
+			backdrop-filter: blur(6px);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 		}
 
 		.back-link:hover {
-			background-color: var(--primary-dark);
-			transform: translateY(-2px);
+			background: rgba(74, 144, 226, 0.4);
+			transform: translateY(-3px);
+			box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 		}
 
 		@media (max-width: 600px) {
 
 			th,
 			td {
-				font-size: 0.9rem;
+				font-size: 0.85rem;
 				padding: 12px 8px;
 			}
 
@@ -132,7 +162,7 @@
 			}
 
 			h1 {
-				font-size: 1.7rem;
+				font-size: 1.6rem;
 			}
 		}
 	</style>
@@ -157,8 +187,11 @@
 				<tr th:each="task : ${List}">
 					<td th:text="${task.work}"></td>
 					<td>
-						<span class="duration-badge" th:if="${#strings.substringBefore(task.totalDuration, ' ') != '0'}"
-							th:text="${#strings.substringBefore(task.totalDuration, ' ') + ' day(s) '}"></span>
+						<span class="duration-badge"
+							th:if="${#strings.substringBefore(task.totalDuration, ' ') != '0'}"
+							th:text="${#strings.substringBefore(task.totalDuration, ' ') + ' day(s) '}"
+							th:attr="data-type=${#strings.substringBefore(task.totalDuration, ' ') lt 2 ? 'short' : (#strings.substringBefore(task.totalDuration, ' ') lt 5 ? 'medium' : 'long')}">
+						</span>
 						<span th:text="${#strings.substringAfter(task.totalDuration, ' day(s) ')}"></span>
 					</td>
 				</tr>

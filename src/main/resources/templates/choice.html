@@ -10,8 +10,8 @@
 		body {
 			margin: 0;
 			font-family: 'Inter', sans-serif;
-			background: #f0f4f8;
-			color: #333;
+			background: linear-gradient(135deg, #141E30, #243B55);
+			color: #fff;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -20,19 +20,27 @@
 		}
 
 		.container {
-			background: white;
+			background: rgba(255, 255, 255, 0.08);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
 			padding: 40px 30px;
-			border-radius: 16px;
-			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+			border-radius: 20px;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 			text-align: center;
-			max-width: 420px;
+			max-width: 450px;
 			width: 100%;
+			transition: transform 0.3s ease;
+		}
+
+		.container:hover {
+			transform: scale(1.02);
 		}
 
 		h1 {
 			margin-bottom: 28px;
-			font-size: 1.8rem;
-			color: #2f3e46;
+			font-size: 1.9rem;
+			color: #f0f4f8;
+			letter-spacing: 0.5px;
 		}
 
 		.button-group {
@@ -42,21 +50,23 @@
 		}
 
 		.choice-btn {
-			background: linear-gradient(135deg, #4a90e2, #357ab8);
-			color: white;
-			border: none;
-			border-radius: 10px;
+			background: rgba(74, 144, 226, 0.2);
+			color: #fff;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			border-radius: 12px;
 			padding: 14px 20px;
 			font-size: 1rem;
 			font-weight: 600;
 			cursor: pointer;
-			transition: all 0.25s ease;
-			box-shadow: 0 4px 10px rgba(74, 144, 226, 0.2);
+			transition: all 0.3s ease;
+			backdrop-filter: blur(5px);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 		}
 
 		.choice-btn:hover {
-			background: linear-gradient(135deg, #3b78c5, #2d6ca1);
-			transform: translateY(-1px);
+			background: rgba(74, 144, 226, 0.4);
+			transform: translateY(-3px);
+			box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 		}
 
 		form {
@@ -79,15 +89,16 @@
 		.message {
 			margin-top: 20px;
 			font-size: 1rem;
-			color: green;
+			color: #9ef01a;
 			display: none;
+			font-weight: 600;
 		}
 	</style>
 </head>
 
 <body>
 	<div class="container">
-		<h1>View Work Durations</h1>
+		<h1>📊 View Work Durations</h1>
 		<div class="button-group">
 			<form action="today" method="get" onsubmit="return showMessage('Today')">
 				<button type="submit" class="choice-btn">Today</button>
@@ -96,17 +107,18 @@
 			<form action="getAll" method="get" onsubmit="return showMessage('Full List')">
 				<button type="submit" class="choice-btn">Full List</button>
 			</form>
+
 			<form action="week" method="get" onsubmit="return showMessage('This Week')">
 				<button type="submit" class="choice-btn">This Week</button>
 			</form>
+
 			<form action="filterByDate" method="get" onsubmit="return showMessage('By Date')">
 				<button type="submit" class="choice-btn">By Date</button>
 			</form>
+
 			<form action="Complete" method="get">
 				<button type="submit" class="choice-btn">Summary</button>
-
-
-
+			</form>
 		</div>
 		<div id="confirmation-message" class="message"></div>
 	</div>
@@ -114,7 +126,7 @@
 	<script>
 		function showMessage(action) {
 			const messageDiv = document.getElementById('confirmation-message');
-			messageDiv.textContent = `You have selected: ${action}`;
+			messageDiv.textContent = `✅ You selected: ${action}`;
 			messageDiv.style.display = 'block';
 			return true; // Allow form submission
 		}

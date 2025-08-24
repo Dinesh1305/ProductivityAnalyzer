@@ -9,28 +9,35 @@
 	<style>
 		body {
 			font-family: 'Inter', sans-serif;
-			background-color: #f4f7fa;
+			background: linear-gradient(135deg, #141E30, #243B55);
 			margin: 0;
 			padding: 20px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
 		}
 
 		.container {
+			width: 100%;
 			max-width: 800px;
-			margin: auto;
-			background: #fff;
+			background: rgba(255, 255, 255, 0.1);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
 			padding: 30px;
-			border-radius: 12px;
-			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-			transition: box-shadow 0.3s ease;
+			border-radius: 16px;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
 		}
 
 		.container:hover {
-			box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+			transform: translateY(-4px);
+			box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
 		}
 
 		h2 {
 			text-align: center;
-			color: #2f3e46;
+			color: #fff;
 			margin-bottom: 24px;
 			font-size: 2rem;
 			letter-spacing: 1px;
@@ -40,26 +47,27 @@
 			width: 100%;
 			border-collapse: collapse;
 			margin-top: 10px;
+			color: #e0e0e0;
 		}
 
 		th,
 		td {
 			padding: 14px;
-			border: 1px solid #e0e0e0;
+			border: 1px solid rgba(255, 255, 255, 0.2);
 			text-align: center;
 			word-break: break-word;
 			transition: background-color 0.3s ease;
 		}
 
 		th {
-			background-color: #007bff;
-			color: white;
+			background: rgba(0, 123, 255, 0.8);
+			color: #fff;
 			font-weight: 600;
 			font-size: 1rem;
 		}
 
 		tr:hover {
-			background-color: #f1f5f9;
+			background: rgba(255, 255, 255, 0.08);
 		}
 
 		@media (max-width: 600px) {
@@ -80,7 +88,7 @@
 
 		.no-data {
 			text-align: center;
-			color: #999;
+			color: #ccc;
 			font-size: 1.2rem;
 			margin-top: 20px;
 		}
@@ -88,7 +96,6 @@
 </head>
 
 <body>
-
 	<div class="container">
 		<h2>Work Duration Summary</h2>
 
@@ -110,7 +117,6 @@
 			</tbody>
 		</table>
 	</div>
-
 </body>
 
 </html>

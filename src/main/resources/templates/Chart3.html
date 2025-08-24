@@ -7,30 +7,33 @@
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f9fbfd;
-      color: #1e293b;
+      background: linear-gradient(135deg, #141E30, #243B55); /* dark gradient */
+      color: #f1f5f9;
       text-align: center;
       padding: 20px;
     }
     h2 {
       margin-bottom: 20px;
-      color: #0f172a;
+      color: #e2e8f0;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
     }
     .chart-container {
       width: 90%;
       max-width: 1200px;
       height: 500px;
       margin: auto;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.08); /* glassmorphism effect */
       border-radius: 20px;
       padding: 25px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(12px);
     }
     canvas {
       width: 100% !important;
       height: 100% !important;
     }
   </style>
+
 </head>
 <body>
   <h2>📊 Work Duration (Full List - Days + Hours)</h2>

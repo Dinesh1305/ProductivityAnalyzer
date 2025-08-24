@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f9fbfd;
+      background: linear-gradient(135deg, #141E30, #243B55); /* 🔥 Your fixed dark gradient */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,41 +16,49 @@
 
     .container {
       text-align: center;
+      background: rgba(255, 255, 255, 0.1); /* Transparent white */
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(12px); /* Glass effect */
+      -webkit-backdrop-filter: blur(12px);
     }
 
     h2 {
-      color: #1e3a8a;
-      margin-bottom: 20px;
+      color: #ffffff;
+      margin-bottom: 25px;
+      font-size: 1.8rem;
     }
 
     .btn {
       display: inline-block;
-      margin: 10px;
-      padding: 12px 25px;
+      margin: 12px;
+      padding: 14px 28px;
       font-size: 16px;
       font-weight: 600;
       color: #fff;
-      background: #2563eb;
+      background: rgba(37, 99, 235, 0.85); /* Transparent blue */
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
       text-decoration: none;
+      backdrop-filter: blur(6px);
     }
 
     .btn:hover {
-      background: #1e40af;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      background: rgba(30, 64, 175, 0.9);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 14px rgba(0,0,0,0.3);
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>📊 Select Chart View</h2>
-    <a href="chart" class="btn">Today</a>
-    <a href="chart2" class="btn">Week</a>
-    <a href="chart3" class="btn">Full List</a>
+    <a href="chart" class="btn">📅 Today</a>
+    <a href="chart2" class="btn">📆 Week</a>
+    <a href="chart3" class="btn">📋 Full List</a>
   </div>
 </body>
 </html>
