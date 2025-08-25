@@ -24,5 +24,11 @@ public List<Tasks> FullList()
 }
 
 
+public List<Object[]> getWeekDuration()
+{
+return 	repo.getWeeklyDurations();
+}
+
+
 
 }
