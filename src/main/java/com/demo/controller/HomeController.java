@@ -83,6 +83,10 @@ public class HomeController {
         return "Chart3";
     }
     
+    @GetMapping("/chart4")
+    public String chart4() {
+        return "Chart4";
+    }
 
 
     
