@@ -130,19 +130,16 @@ public interface CompleteTaskRepo extends JpaRepository<CompleteTasks, Integer> 
 	
     @Query(
     	      value = """
-    	              SELECT 
-    	                  DAYNAME(starting_time) AS day_name,
-    	                  SEC_TO_TIME(SUM(TIMESTAMPDIFF(SECOND, starting_time, ending_time))) AS total_duration
-    	              FROM 
-    	                  complete_tasks
-    	              WHERE 
-    	                  starting_time IS NOT NULL 
-    	                  AND ending_time IS NOT NULL
-    	                  AND YEARWEEK(starting_time, 1) = YEARWEEK(CURDATE(), 1)
-    	              GROUP BY 
-    	                  DAYOFWEEK(starting_time), day_name
-    	              ORDER BY 
-    	                  DAYOFWEEK(starting_time)
+    	           SELECT 
+    DAYNAME(starting_time) AS day_name,
+    SUM(TIMESTAMPDIFF(SECOND, starting_time, ending_time)) AS total_seconds
+FROM complete_tasks
+WHERE starting_time IS NOT NULL 
+  AND ending_time IS NOT NULL
+  AND YEARWEEK(starting_time, 1) = YEARWEEK(CURDATE(), 1)
+GROUP BY DAYOFWEEK(starting_time), day_name
+ORDER BY DAYOFWEEK(starting_time);
+
     	              """,
     	      nativeQuery = true
     	    )

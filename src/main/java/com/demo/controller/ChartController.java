@@ -125,5 +125,37 @@ for (Tasks temp : t1) {
 		return response;
 
 	}
+	
+	@GetMapping("weekly")
+	public Map<String,Object> getWeekly()
+	{
+		Map<String,Object>map=new HashMap<>();
+		
+		
+		List<Object[]> t1 = service2.getWeekDuration();
+
+		List<String> work = new ArrayList<>();
+
+		List<Long> duration = new ArrayList<>();
+		
+		
+		for(Object []t:t1)
+		{
+			//System.out.println(t[0]+"   "+t[1]);
+			work.add(String.valueOf(t[0]));
+			
+			duration.add( ((Number) t[1]).longValue());
+		}
+		map.put("labels", work);
+
+		// Data for y-axis
+		map.put("data", duration);
+
+		return map;
+		//return null;
+	}
+	
+	
+	
 
 }
