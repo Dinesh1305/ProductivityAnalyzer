@@ -9,39 +9,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demo.model.Problems;
-import com.demo.repository.ProblemRepo;
+import com.demo.service.ProblemService;
 
 @Controller
 public class ProblemController {
 
 	@Autowired
-	ProblemRepo repo;
+	ProblemService service;
 
 	@PostMapping("addProblem")
 	public String add(@ModelAttribute Problems p) {
-		repo.save(p);
+		service.add(p);
 		return "index";
 	}
 
 	@GetMapping("problems")
 	public String get(Model m) {
 
-		m.addAttribute("problems", repo.findAll());
+		m.addAttribute("problems", service.getAll());
 
-		List<Problems> t = repo.findAll();
-		for (Problems y : t) {
-			System.out.println(y.getName() + "   " + y.getUrl());
-		}
 		return "ViewProblem";
 
 	}
 
 	@PostMapping("remove")
 	public String remove(@RequestParam("name") String name) {
-repo.deleteById(name);
+		service.delete(name);
 		return "index";
 	}
 }
