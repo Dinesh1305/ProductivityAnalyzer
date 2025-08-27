@@ -2,6 +2,7 @@ package com.demo.controller;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class CompleteTasksController {
 	public String complete(Model model) {
 
 		List<CompleteTasks> k = service.getall();
+
+		// System.out.println(k);
 		model.addAttribute("List", k);
 		return "task";
 
@@ -63,10 +66,8 @@ public class CompleteTasksController {
 	@GetMapping("today")
 	public String findToday(Model m) {
 
-		
-		
 		List<Tasks> t = service.getToday();
-		//System.out.print(service.getDuartion());
+		// System.out.print(service.getDuartion());
 		m.addAttribute("tasks", t);
 		return "duration";
 	}
