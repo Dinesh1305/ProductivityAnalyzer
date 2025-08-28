@@ -58,36 +58,31 @@ public class HomeController {
 	public String filterByDate() {
 		return "FilterByDate";
 	}
-	
-	
-	  
-    @GetMapping("/progress")
-    public String  get()
-    {
-    	
-    	return "list";
-    }
-    
-    @GetMapping("/chart")
-    public String chart1() {
-        return "Chart"; // Chart1.html or Chart1.jsp
-    }
 
-    @GetMapping("/chart2")
-    public String chart2() {
-        return "Chart2";
-    }
+	@GetMapping("/progress")
+	public String get() {
 
-    @GetMapping("/chart3")
-    public String chart3() {
-        return "Chart3";
-    }
-    
-    @GetMapping("/chart4")
-    public String chart4() {
-        return "Chart4";
-    }
+		return "list";
+	}
 
+	@GetMapping("/chart")
+	public String chart1() {
+		return "Chart"; // Chart1.html or Chart1.jsp
+	}
 
-    
+	@GetMapping("/chart2")
+	public String chart2() {
+		return "Chart2";
+	}
+
+	@GetMapping("/chart3")
+	public String chart3() {
+		return "Chart3";
+	}
+
+	@GetMapping("/chart4")
+	public String chart4() {
+		return "Chart4";
+	}
+
 }

@@ -1,83 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Weekly Work Duration</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #141E30, #243B55);
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
-    h2 { color: #fff; margin: 20px 0; text-shadow: 1px 1px 4px rgba(0,0,0,0.6); }
-    .chart-container { width: 90%; max-width: 850px; background: rgba(255,255,255,0.1); padding: 25px; border-radius: 20px; }
-  </style>
+	<meta charset="UTF-8">
+	<title>Weekly Work Duration</title>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<style>
+		body {
+			font-family: 'Segoe UI', sans-serif;
+			background: linear-gradient(135deg, #141E30, #243B55);
+			margin: 0;
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			min-height: 100vh;
+		}
+
+		h2 {
+			color: #fff;
+			margin: 20px 0;
+			text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+		}
+
+		.chart-container {
+			width: 90%;
+			max-width: 850px;
+			background: rgba(255, 255, 255, 0.1);
+			padding: 25px;
+			border-radius: 20px;
+		}
+	</style>
 </head>
+
 <body>
-  <h2>⏱ This Week's Work Duration</h2>
-  <div class="chart-container">
-    <canvas id="myChart"></canvas>
-  </div>
+	<h2>⏱ This Week's Work Duration</h2>
+	<div class="chart-container">
+		<canvas id="myChart"></canvas>
+	</div>
 
-  <script>
-    // Convert seconds → HH:MM:SS
-    function formatTime(seconds) {
-      const hrs = Math.floor(seconds / 3600);
-      const mins = Math.floor((seconds % 3600) / 60);
-      const secs = seconds % 60;
-      return `${hrs}h ${mins}m ${secs}s`;
-    }
+	<script>
+		// Convert seconds → HH:MM:SS
+		function formatTime(seconds) {
+			const hrs = Math.floor(seconds / 3600);
+			const mins = Math.floor((seconds % 3600) / 60);
+			const secs = seconds % 60;
+			return `${hrs}h ${mins}m ${secs}s`;
+		}
 
-    fetch('/api/chart/weekly')
-      .then(res => res.json())
-      .then(data => {
-        const ctx = document.getElementById('myChart').getContext('2d');
+		fetch('/api/chart/weekly')
+			.then(res => res.json())
+			.then(data => {
+				const ctx = document.getElementById('myChart').getContext('2d');
 
-        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(0, 212, 255, 0.9)');
-        gradient.addColorStop(1, 'rgba(9, 121, 236, 0.3)');
+				const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+				gradient.addColorStop(0, 'rgba(0, 212, 255, 0.9)');
+				gradient.addColorStop(1, 'rgba(9, 121, 236, 0.3)');
 
-        new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: data.labels,
-            datasets: [{
-              label: 'Duration (HH:MM:SS)',
-              data: data.data,
-              backgroundColor: gradient,
-              borderColor: 'rgba(0, 212, 255, 1)',
-              borderWidth: 2,
-              borderRadius: 10
-            }]
-          },
-          options: {
-            responsive: true,
-            plugins: {
-              tooltip: {
-                callbacks: {
-                  label: function(context) { return formatTime(context.raw); }
-                }
-              },
-              legend: { labels: { color: '#fff' } },
-              title: { display: true, text: "Weekly Work Duration", color: '#fff', font: { size: 18 } }
-            },
-            scales: {
-              x: { ticks: { color: '#e0e0e0' }, grid: { color: 'rgba(255,255,255,0.1)' } },
-              y: { 
-                beginAtZero: true,
-                ticks: { color: '#e0e0e0', callback: value => formatTime(value) },
-                grid: { color: 'rgba(255,255,255,0.1)' }
-              }
-            }
-          }
-        });
-      });
-  </script>
+				new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: data.labels,
+						datasets: [{
+							label: 'Duration (HH:MM:SS)',
+							data: data.data,
+							backgroundColor: gradient,
+							borderColor: 'rgba(0, 212, 255, 1)',
+							borderWidth: 2,
+							borderRadius: 10
+						}]
+					},
+					options: {
+						responsive: true,
+						plugins: {
+							tooltip: {
+								callbacks: {
+									label: function (context) {return formatTime(context.raw);}
+								}
+							},
+							legend: {labels: {color: '#fff'}},
+							title: {display: true, text: "Weekly Work Duration", color: '#fff', font: {size: 18}}
+						},
+						scales: {
+							x: {ticks: {color: '#e0e0e0'}, grid: {color: 'rgba(255,255,255,0.1)'}},
+							y: {
+								beginAtZero: true,
+								ticks: {color: '#e0e0e0', callback: value => formatTime(value)},
+								grid: {color: 'rgba(255,255,255,0.1)'}
+							}
+						}
+					}
+				});
+			});
+	</script>
 </body>
+
 </html>

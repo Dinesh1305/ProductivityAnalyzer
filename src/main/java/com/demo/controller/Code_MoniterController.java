@@ -22,9 +22,9 @@ public class Code_MoniterController {
 				{
 				  recentSubmissionList(username: "akesh_007") {
 				    title
-				 
+
 				    status
-				
+
 				  }
 				}
 				""";

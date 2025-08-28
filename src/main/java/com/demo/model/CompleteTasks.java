@@ -89,6 +89,5 @@ public class CompleteTasks {
 		return "CompleteTasks [id=" + id + ", work=" + work + ", starting_time=" + starting_time + ", ending_time="
 				+ ending_time + ", createdDate=" + createdDate + "]";
 	}
-	
 
 }

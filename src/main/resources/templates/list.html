@@ -1,65 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Chart Navigation</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #141E30, #243B55); /* 🔥 Your fixed dark gradient */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+	<meta charset="UTF-8">
+	<title>Chart Navigation</title>
+	<style>
+		body {
+			font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+			background: linear-gradient(135deg, #141E30, #243B55);
+			/* 🔥 Your fixed dark gradient */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			margin: 0;
+		}
 
-    .container {
-      text-align: center;
-      background: rgba(255, 255, 255, 0.1); /* Transparent white */
-      padding: 40px 30px;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(12px); /* Glass effect */
-      -webkit-backdrop-filter: blur(12px);
-    }
+		.container {
+			text-align: center;
+			background: rgba(255, 255, 255, 0.1);
+			/* Transparent white */
+			padding: 40px 30px;
+			border-radius: 16px;
+			box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+			backdrop-filter: blur(12px);
+			/* Glass effect */
+			-webkit-backdrop-filter: blur(12px);
+		}
 
-    h2 {
-      color: #ffffff;
-      margin-bottom: 25px;
-      font-size: 1.8rem;
-    }
+		h2 {
+			color: #ffffff;
+			margin-bottom: 25px;
+			font-size: 1.8rem;
+		}
 
-    .btn {
-      display: inline-block;
-      margin: 12px;
-      padding: 14px 28px;
-      font-size: 16px;
-      font-weight: 600;
-      color: #fff;
-      background: rgba(37, 99, 235, 0.85); /* Transparent blue */
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      backdrop-filter: blur(6px);
-    }
+		.btn {
+			display: inline-block;
+			margin: 12px;
+			padding: 14px 28px;
+			font-size: 16px;
+			font-weight: 600;
+			color: #fff;
+			background: rgba(37, 99, 235, 0.85);
+			/* Transparent blue */
+			border: none;
+			border-radius: 12px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			text-decoration: none;
+			backdrop-filter: blur(6px);
+		}
 
-    .btn:hover {
-      background: rgba(30, 64, 175, 0.9);
-      transform: translateY(-3px);
-      box-shadow: 0 5px 14px rgba(0,0,0,0.3);
-    }
-  </style>
+		.btn:hover {
+			background: rgba(30, 64, 175, 0.9);
+			transform: translateY(-3px);
+			box-shadow: 0 5px 14px rgba(0, 0, 0, 0.3);
+		}
+	</style>
 </head>
+
 <body>
-  <div class="container">
-    <h2>📊 Select Chart View</h2>
-    <a href="chart" class="btn">📅 Today</a>
-    <a href="chart2" class="btn">📆 Week</a>
-    <a href="chart3" class="btn">📋 Full List</a>
-	<a href="chart4" class="btn">📋 Weekly Report</a>
-  </div>
+	<div class="container">
+		<h2>📊 Select Chart View</h2>
+		<a href="chart" class="btn">📅 Today</a>
+		<a href="chart2" class="btn">📆 Week</a>
+		<a href="chart3" class="btn">📋 Full List</a>
+		<a href="chart4" class="btn">📋 Weekly Report</a>
+	</div>
 </body>
+
 </html>

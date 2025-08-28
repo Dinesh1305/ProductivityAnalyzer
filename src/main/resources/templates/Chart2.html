@@ -1,170 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Work Duration Report</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #141E30, #243B55);
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
+	<meta charset="UTF-8">
+	<title>Work Duration Report</title>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<style>
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background: linear-gradient(135deg, #141E30, #243B55);
+			margin: 0;
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			min-height: 100vh;
+		}
 
-    h2 {
-      color: #ffffff;
-      font-weight: 700;
-      margin: 20px 0;
-      font-size: 2rem;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
-      animation: fadeDown 1s ease;
-    }
+		h2 {
+			color: #ffffff;
+			font-weight: 700;
+			margin: 20px 0;
+			font-size: 2rem;
+			text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+			animation: fadeDown 1s ease;
+		}
 
-    .chart-container {
-      width: 90%;
-      max-width: 850px;
-      margin: auto;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-      animation: fadeUp 1.2s ease;
-    }
+		.chart-container {
+			width: 90%;
+			max-width: 850px;
+			margin: auto;
+			background: rgba(255, 255, 255, 0.1);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			padding: 25px;
+			border-radius: 20px;
+			box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+			animation: fadeUp 1.2s ease;
+		}
 
-    footer {
-      margin-top: 25px;
-      font-size: 14px;
-      color: #d1d1d1;
-      text-align: center;
-      animation: fadeIn 1.5s ease;
-    }
+		footer {
+			margin-top: 25px;
+			font-size: 14px;
+			color: #d1d1d1;
+			text-align: center;
+			animation: fadeIn 1.5s ease;
+		}
 
-    /* Chart hover scale effect */
-    .chartjs-render-monitor {
-      transition: transform 0.25s ease;
-    }
+		/* Chart hover scale effect */
+		.chartjs-render-monitor {
+			transition: transform 0.25s ease;
+		}
 
-    .chartjs-render-monitor:hover {
-      transform: scale(1.04);
-    }
+		.chartjs-render-monitor:hover {
+			transform: scale(1.04);
+		}
 
-    /* Animations */
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+		/* Animations */
+		@keyframes fadeDown {
+			from {
+				opacity: 0;
+				transform: translateY(-20px);
+			}
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-  </style>
+		@keyframes fadeUp {
+			from {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+	</style>
 </head>
+
 <body>
-  <h2>⏱ Work Duration Report (Week)</h2>
-  <div class="chart-container">
-    <canvas id="myChart"></canvas>
-  </div>
-  <footer>
-    <p>📊 Data represents the this week's work duration for each task completed today.</p>
-  </footer>
+	<h2>⏱ Work Duration Report (Week)</h2>
+	<div class="chart-container">
+		<canvas id="myChart"></canvas>
+	</div>
+	<footer>
+		<p>📊 Data represents the this week's work duration for each task completed today.</p>
+	</footer>
 
-  <script>
-    // Helper: Convert seconds → HH:MM:SS
-    function formatTime(seconds) {
-      const hrs = Math.floor(seconds / 3600);
-      const mins = Math.floor((seconds % 3600) / 60);
-      const secs = seconds % 60;
-      return `${hrs}h ${mins}m ${secs}s`;
-    }
+	<script>
+		// Helper: Convert seconds → HH:MM:SS
+		function formatTime(seconds) {
+			const hrs = Math.floor(seconds / 3600);
+			const mins = Math.floor((seconds % 3600) / 60);
+			const secs = seconds % 60;
+			return `${hrs}h ${mins}m ${secs}s`;
+		}
 
-    // Fetch chart data
-    fetch('/api/chart/week')
-      .then(response => response.json())
-      .then(data => {
-        const ctx = document.getElementById('myChart').getContext('2d');
+		// Fetch chart data
+		fetch('/api/chart/week')
+			.then(response => response.json())
+			.then(data => {
+				const ctx = document.getElementById('myChart').getContext('2d');
 
-        // Gradient colors for bars
-        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(0, 212, 255, 0.9)');
-        gradient.addColorStop(1, 'rgba(9, 121, 236, 0.3)');
+				// Gradient colors for bars
+				const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+				gradient.addColorStop(0, 'rgba(0, 212, 255, 0.9)');
+				gradient.addColorStop(1, 'rgba(9, 121, 236, 0.3)');
 
-        new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: data.labels,
-            datasets: [{
-              label: 'Duration',
-              data: data.data,
-              backgroundColor: gradient,
-              borderColor: 'rgba(0, 212, 255, 1)',
-              borderWidth: 2,
-              borderRadius: 10,
-              hoverBackgroundColor: 'rgba(255, 159, 64, 0.9)',
-              hoverBorderColor: 'rgba(255, 159, 64, 1)'
-            }]
-          },
-          options: {
-            responsive: true,
-            plugins: {
-              legend: {
-                labels: {
-                  font: { size: 14, weight: 'bold' },
-                  color: '#f1f1f1'
-                }
-              },
-              title: {
-                display: true,
-                text: 'This Week’s Work Duration (HH:MM:SS)',
-                font: { size: 18, weight: 'bold' },
-                color: '#ffffff',
-                padding: { top: 10, bottom: 20 }
-              },
-              tooltip: {
-                backgroundColor: '#222',
-                titleColor: '#fff',
-                bodyColor: '#fff',
-                padding: 12,
-                cornerRadius: 8,
-                callbacks: {
-                  label: function(context) {
-                    return formatTime(context.raw);
-                  }
-                }
-              }
-            },
-            scales: {
-              x: {
-                grid: { color: 'rgba(255,255,255,0.1)' },
-                ticks: { font: { size: 13 }, color: '#e0e0e0' }
-              },
-              y: {
-                beginAtZero: true,
-                grid: { color: 'rgba(255,255,255,0.1)' },
-                ticks: {
-                  font: { size: 13 },
-                  color: '#e0e0e0',
-                  callback: function(value) {
-                    return formatTime(value);
-                  }
-                }
-              }
-            }
-          }
-        });
-      });
-  </script>
+				new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: data.labels,
+						datasets: [{
+							label: 'Duration',
+							data: data.data,
+							backgroundColor: gradient,
+							borderColor: 'rgba(0, 212, 255, 1)',
+							borderWidth: 2,
+							borderRadius: 10,
+							hoverBackgroundColor: 'rgba(255, 159, 64, 0.9)',
+							hoverBorderColor: 'rgba(255, 159, 64, 1)'
+						}]
+					},
+					options: {
+						responsive: true,
+						plugins: {
+							legend: {
+								labels: {
+									font: {size: 14, weight: 'bold'},
+									color: '#f1f1f1'
+								}
+							},
+							title: {
+								display: true,
+								text: 'This Week’s Work Duration (HH:MM:SS)',
+								font: {size: 18, weight: 'bold'},
+								color: '#ffffff',
+								padding: {top: 10, bottom: 20}
+							},
+							tooltip: {
+								backgroundColor: '#222',
+								titleColor: '#fff',
+								bodyColor: '#fff',
+								padding: 12,
+								cornerRadius: 8,
+								callbacks: {
+									label: function (context) {
+										return formatTime(context.raw);
+									}
+								}
+							}
+						},
+						scales: {
+							x: {
+								grid: {color: 'rgba(255,255,255,0.1)'},
+								ticks: {font: {size: 13}, color: '#e0e0e0'}
+							},
+							y: {
+								beginAtZero: true,
+								grid: {color: 'rgba(255,255,255,0.1)'},
+								ticks: {
+									font: {size: 13},
+									color: '#e0e0e0',
+									callback: function (value) {
+										return formatTime(value);
+									}
+								}
+							}
+						}
+					}
+				});
+			});
+	</script>
 </body>
+
 </html>

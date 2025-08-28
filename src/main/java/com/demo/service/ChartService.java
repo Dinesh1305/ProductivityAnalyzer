@@ -8,27 +8,19 @@ import org.springframework.stereotype.Service;
 import com.demo.model.Tasks;
 import com.demo.repository.CompleteTaskRepo;
 
-@Service 
+@Service
 public class ChartService {
 
+	@Autowired
+	CompleteTaskRepo repo;
 
-@Autowired	
-CompleteTaskRepo repo;
+	public List<Tasks> FullList() {
+		return repo.getFullList();
 
+	}
 
-public List<Tasks> FullList()
-{
-	return repo.getFullList();
-
-
-}
-
-
-public List<Object[]> getWeekDuration()
-{
-return 	repo.getWeeklyDurations();
-}
-
-
+	public List<Object[]> getWeekDuration() {
+		return repo.getWeeklyDurations();
+	}
 
 }

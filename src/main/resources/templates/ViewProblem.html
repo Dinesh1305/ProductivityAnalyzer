@@ -104,16 +104,16 @@
 		<h1>📘 Programming Problems</h1>
 		<ul>
 			<li th:each="p : ${problems}">
-			            <a th:href="${p.url}" th:text="${p.name}" target="_blank" class="problem-link"></a>
+				<a th:href="${p.url}" th:text="${p.name}" target="_blank" class="problem-link"></a>
 
-			            <form th:action="@{/remove}" method="post" class="remove-form">
-			                <!-- Using name instead of id -->
-			                <input type="hidden" name="name" th:value="${p.name}" />
-			                <button type="submit" class="remove-btn">Remove</button>
-			            </form>
-			        </li>
-				
-						</ul>
+				<form th:action="@{/remove}" method="post" class="remove-form">
+					<!-- Using name instead of id -->
+					<input type="hidden" name="name" th:value="${p.name}" />
+					<button type="submit" class="remove-btn">Remove</button>
+				</form>
+			</li>
+
+		</ul>
 
 
 	</div>

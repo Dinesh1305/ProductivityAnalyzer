@@ -61,22 +61,16 @@ public class ChartController {
 		List<String> work = new ArrayList<>();
 
 		List<Long> duration = new ArrayList<>();
-	
 
-		
-		Map<Long,String>map=new TreeMap<>(Collections.reverseOrder());
-		
-		
-for (Tasks temp : t) {
-			
-			
-		
+		Map<Long, String> map = new TreeMap<>(Collections.reverseOrder());
 
-		map.put(temp.getTotalSeconds(),temp.getWork());
+		for (Tasks temp : t) {
+
+			map.put(temp.getTotalSeconds(), temp.getWork());
 		}
-		
+
 		for (Long temp : map.keySet()) {
-		
+
 			duration.add(temp);
 			work.add(map.get(temp));
 		}
@@ -100,19 +94,15 @@ for (Tasks temp : t) {
 
 		List<Long> duration = new ArrayList<>();
 
-		Map<Long,String>map=new TreeMap<>(Collections.reverseOrder());
-		
-		
-for (Tasks temp : t1) {
-			
-			
-		
+		Map<Long, String> map = new TreeMap<>(Collections.reverseOrder());
 
-		map.put(temp.getTotalSeconds(),temp.getWork());
+		for (Tasks temp : t1) {
+
+			map.put(temp.getTotalSeconds(), temp.getWork());
 		}
-		
+
 		for (Long temp : map.keySet()) {
-		
+
 			duration.add(temp);
 			work.add(map.get(temp));
 		}
@@ -125,26 +115,22 @@ for (Tasks temp : t1) {
 		return response;
 
 	}
-	
+
 	@GetMapping("weekly")
-	public Map<String,Object> getWeekly()
-	{
-		Map<String,Object>map=new HashMap<>();
-		
-		
+	public Map<String, Object> getWeekly() {
+		Map<String, Object> map = new HashMap<>();
+
 		List<Object[]> t1 = service2.getWeekDuration();
 
 		List<String> work = new ArrayList<>();
 
 		List<Long> duration = new ArrayList<>();
-		
-		
-		for(Object []t:t1)
-		{
-			//System.out.println(t[0]+"   "+t[1]);
+
+		for (Object[] t : t1) {
+			// System.out.println(t[0]+" "+t[1]);
 			work.add(String.valueOf(t[0]));
-			
-			duration.add( ((Number) t[1]).longValue());
+
+			duration.add(((Number) t[1]).longValue());
 		}
 		map.put("labels", work);
 
@@ -152,10 +138,7 @@ for (Tasks temp : t1) {
 		map.put("data", duration);
 
 		return map;
-		//return null;
+		// return null;
 	}
-	
-	
-	
 
 }

@@ -107,41 +107,32 @@ public interface CompleteTaskRepo extends JpaRepository<CompleteTasks, Integer> 
 			        work
 			""", nativeQuery = true)
 	List<Tasks> getByDate(@Param("date") Date date);
-	
-	
-	
-	@Query(
-		    value = """
-		        SELECT 
-		            work,
-		            SUM(TIMESTAMPDIFF(SECOND, starting_time, ending_time)) AS total_seconds
-		        FROM 
-		            complete_tasks
-		        WHERE 
-		            starting_time IS NOT NULL 
-		            AND ending_time IS NOT NULL
-		        GROUP BY 
-		            work
-		        """,
-		    nativeQuery = true
-		)
-		List<Tasks> getFullList();
 
-	
-    @Query(
-    	      value = """
-    	           SELECT 
-    DAYNAME(starting_time) AS day_name,
-    SUM(TIMESTAMPDIFF(SECOND, starting_time, ending_time)) AS total_seconds
-FROM complete_tasks
-WHERE starting_time IS NOT NULL 
-  AND ending_time IS NOT NULL
-  AND YEARWEEK(starting_time, 1) = YEARWEEK(CURDATE(), 1)
-GROUP BY DAYOFWEEK(starting_time), day_name
-ORDER BY DAYOFWEEK(starting_time);
+	@Query(value = """
+			SELECT
+			    work,
+			    SUM(TIMESTAMPDIFF(SECOND, starting_time, ending_time)) AS total_seconds
+			FROM
+			    complete_tasks
+			WHERE
+			    starting_time IS NOT NULL
+			    AND ending_time IS NOT NULL
+			GROUP BY
+			    work
+			""", nativeQuery = true)
+	List<Tasks> getFullList();
 
-    	              """,
-    	      nativeQuery = true
-    	    )
-    	    List<Object[]> getWeeklyDurations();
+	@Query(value = """
+			    	           SELECT
+			    DAYNAME(starting_time) AS day_name,
+			    SUM(TIMESTAMPDIFF(SECOND, starting_time, ending_time)) AS total_seconds
+			FROM complete_tasks
+			WHERE starting_time IS NOT NULL
+			  AND ending_time IS NOT NULL
+			  AND YEARWEEK(starting_time, 1) = YEARWEEK(CURDATE(), 1)
+			GROUP BY DAYOFWEEK(starting_time), day_name
+			ORDER BY DAYOFWEEK(starting_time);
+
+			    	              """, nativeQuery = true)
+	List<Object[]> getWeeklyDurations();
 }
