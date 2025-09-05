@@ -19,13 +19,13 @@ public class TaskController {
 	public String save(@ModelAttribute Task t) {
 		taskservice.save(t);
 
-		return "index";
+		return "redirect:/";
 	}
 
 	@PostMapping("done/{id}")
 	public String done(@PathVariable Integer id) {
 		taskservice.remove(id);
-		return "index";
+		return "redirect:/";
 
 	}
 
