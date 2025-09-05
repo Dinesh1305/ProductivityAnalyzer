@@ -10,7 +10,7 @@ public class Cleaning {
 	@PreDestroy
 	public void close()
 	{
-		System.out.println("hello");
+		
 	}
 	
 }

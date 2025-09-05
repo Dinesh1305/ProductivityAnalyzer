@@ -43,5 +43,12 @@ public class TaskService {
 		completetasksrepo.save(completetasks);
 
 	}
+	
+	
+	
+	public Long getCount()
+	{
+		return task.count();
+	}
 
 }
