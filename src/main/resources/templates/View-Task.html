@@ -6,62 +6,54 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>View Tasks</title>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
 	<style>
 		body {
 			font-family: 'Inter', sans-serif;
-			background: linear-gradient(135deg, #1e3c72, #2a5298);
-			/* gradient blue background */
-			padding: 20px;
+	background: linear-gradient(135deg, #141E30, #243B55);
+			padding: 30px;
 			margin: 0;
 			color: #2c3e50;
+			font-size: 16px; /* increased base font */
 		}
 
 		.container {
-			background: rgba(255, 255, 255, 0.85);
-			/* semi-transparent white */
-			padding: 30px;
+			background: rgba(255, 255, 255, 0.95);
+			padding: 30px; /* more padding */
 			border-radius: 20px;
-			max-width: 900px;
+			max-width: 1000px; /* wider container */
 			margin: 30px auto;
 			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-			backdrop-filter: blur(8px);
-			transition: transform 0.3s ease, box-shadow 0.3s ease;
-		}
-
-		.container:hover {
-			transform: translateY(-5px);
-			box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
 		}
 
 		h1 {
 			text-align: center;
 			color: #0d47a1;
 			margin-bottom: 24px;
-			font-size: 28px;
-			letter-spacing: 1px;
+			font-size: 28px; /* bigger heading */
 		}
 
 		table {
 			width: 100%;
 			border-collapse: collapse;
-			margin-top: 20px;
-			background: rgba(255, 255, 255, 0.7);
+			background: rgba(255, 255, 255, 0.9);
 			border-radius: 12px;
 			overflow: hidden;
+			font-size: 16px; /* bigger table text */
 		}
 
 		th,
 		td {
-			padding: 14px;
+			padding: 14px 12px; /* larger padding */
 			text-align: center;
 			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-			transition: background 0.3s ease;
 		}
 
 		th {
 			background: rgba(25, 118, 210, 0.9);
 			color: white;
 			font-weight: 600;
+			font-size: 16px;
 		}
 
 		tr:nth-child(even) {
@@ -70,47 +62,45 @@
 
 		tr:hover {
 			background: rgba(25, 118, 210, 0.1);
-			cursor: pointer;
 		}
 
-		button {
-			background: linear-gradient(135deg, #42a5f5, #1e88e5);
-			color: white;
+		.action-btn {
+			background: none;
 			border: none;
-			padding: 8px 16px;
-			border-radius: 8px;
-			font-size: 14px;
-			font-weight: 600;
 			cursor: pointer;
-			transition: transform 0.2s ease, background 0.3s ease;
-		}
-
-		button:hover {
-			background: linear-gradient(135deg, #1976d2, #0d47a1);
-			transform: scale(1.05);
-		}
-
-		a {
-			display: inline-block;
-			margin-top: 20px;
-			text-decoration: none;
+			font-size: 20px; /* bigger icons */
+			margin: 0 5px;
 			color: #1565c0;
+			transition: transform 0.2s ease, color 0.3s ease;
+		}
+
+		.action-btn:hover {
+			transform: scale(1.2);
+			color: #0d47a1;
+		}
+
+		a.add-btn {
+			display: block;
+			margin: 20px auto 0;
+			text-decoration: none;
+			color: white;
+			background: linear-gradient(135deg, #42a5f5, #1e88e5);
+			padding: 12px 28px; /* bigger button */
+			border-radius: 14px;
+			font-size: 16px;
 			font-weight: 600;
 			text-align: center;
-			padding: 10px 20px;
-			border-radius: 8px;
-			background: rgba(21, 101, 192, 0.1);
+			width: fit-content;
 			transition: background 0.3s ease, transform 0.2s ease;
 		}
 
-		a:hover {
-			background: rgba(21, 101, 192, 0.2);
-			text-decoration: none;
+		a.add-btn:hover {
+			background: linear-gradient(135deg, #1976d2, #0d47a1);
 			transform: translateY(-2px);
 		}
 
-		@media (max-width: 600px) {
-
+		/* Mobile view */
+		@media (max-width: 700px) {
 			table,
 			thead,
 			tbody,
@@ -128,14 +118,15 @@
 			tr {
 				margin-bottom: 15px;
 				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-				border-radius: 8px;
-				padding: 10px;
-				background: rgba(255, 255, 255, 0.85);
+				border-radius: 10px;
+				padding: 12px;
+				background: rgba(255, 255, 255, 0.95);
+				font-size: 15px;
 			}
 
 			td {
 				text-align: left;
-				padding: 8px 12px;
+				padding: 10px 12px;
 				border-bottom: none;
 				position: relative;
 			}
@@ -146,6 +137,7 @@
 				color: #666;
 				display: block;
 				margin-bottom: 4px;
+				font-size: 14px;
 			}
 		}
 	</style>
@@ -153,7 +145,7 @@
 
 <body>
 	<div class="container">
-		<h1>All Tasks</h1>
+		<h1>📋 All Tasks</h1>
 
 		<table>
 			<thead>
@@ -168,16 +160,19 @@
 					<td data-label="Task" th:text="${task.work}">Sample Task</td>
 					<td data-label="Created Time" th:text="${#dates.format(task.time, 'hh:mm:ss a')}">12:00 PM</td>
 					<td data-label="Action">
-						<form th:action="@{'/done/' + ${task.id}}" method="post">
-							<button type="submit">Done</button>
+						<form th:action="@{'/done/' + ${task.id}}" method="post" style="display:inline;">
+							<button type="submit" class="action-btn" title="Mark Done"><i class="ri-check-line"></i></button>
+						</form>
+						<form th:action="@{'/removeTask/'+${task.id}}" method="post" style="display:inline;" 
+							  onsubmit="return confirm('Are you sure you want to remove this task?');">
+							<button type="submit" class="action-btn" title="Remove Task"><i class="ri-delete-bin-6-line"></i></button>
 						</form>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 
-		<a href="/Add-Task">+ Add New Task</a>
+		<a href="/Add-Task" class="add-btn">+ Add New Task</a>
 	</div>
 </body>
-
 </html>
