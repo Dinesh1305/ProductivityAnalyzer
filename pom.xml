@@ -13,9 +13,9 @@
     </parent>
 
     <groupId>com.Web</groupId>
-    <artifactId>Quiz-Application-1</artifactId>
+    <artifactId>ProductivityAnalyzer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Quiz-Application-1</name>
+    <name>ProductivityAnalyzer</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -61,16 +61,14 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-    <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-webflux</artifactId>
-</dependency>
 
-        <!-- Mail API -->
-    
+        <!-- Spring WebFlux -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
 
         <!-- Spring Boot Test -->
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -85,14 +83,6 @@
             <version>1.0.0</version>
         </dependency>
         -->
-        
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-webflux -->
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-webflux</artifactId>
-
-</dependency>
-
     </dependencies>
 
     <build>
