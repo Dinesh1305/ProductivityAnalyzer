@@ -25,20 +25,20 @@ public class Task {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public Timestamp getTime() {
 		return time;
 	}
 
-	public void setTime(Timestamp time) {
-		this.time = time;
-	}
-
 	public String getWork() {
 		return work;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setTime(Timestamp time) {
+		this.time = time;
 	}
 
 	public void setWork(String work) {

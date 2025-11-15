@@ -15,56 +15,6 @@ public class HomeController {
 	@Autowired
 	TaskService taskservice;
 
-	@GetMapping("/")
-	public String home_page() {
-		return "index";
-	}
-
-	@GetMapping("/Add-Task")
-	public String page_one(Model model) {
-		model.addAttribute("task", new Task());
-		return "Add-Task";
-	}
-
-	@GetMapping("/View")
-	public String page_two(Model model) {
-		model.addAttribute("Task", taskservice.get());
-		return "View-Task";
-	}
-
-	@GetMapping("index")
-	public String index() {
-		return "index";
-	}
-
-	@GetMapping("filter")
-	public String filter() {
-		return "Filter";
-	}
-
-	@GetMapping("durations")
-	public String duration() {
-		return "choice";
-	}
-
-	@GetMapping("addProblem")
-	public String problems(Model m) {
-
-		m.addAttribute("problem", new Problems());
-		return "problem";
-	}
-
-	@GetMapping("filterByDate")
-	public String filterByDate() {
-		return "FilterByDate";
-	}
-
-	@GetMapping("/progress")
-	public String get() {
-
-		return "list";
-	}
-
 	@GetMapping("/chart")
 	public String chart1() {
 		return "Chart"; // Chart1.html or Chart1.jsp
@@ -83,6 +33,56 @@ public class HomeController {
 	@GetMapping("/chart4")
 	public String chart4() {
 		return "Chart4";
+	}
+
+	@GetMapping("durations")
+	public String duration() {
+		return "choice";
+	}
+
+	@GetMapping("filter")
+	public String filter() {
+		return "Filter";
+	}
+
+	@GetMapping("filterByDate")
+	public String filterByDate() {
+		return "FilterByDate";
+	}
+
+	@GetMapping("/progress")
+	public String get() {
+
+		return "list";
+	}
+
+	@GetMapping("/")
+	public String home_page() {
+		return "index";
+	}
+
+	@GetMapping("index")
+	public String index() {
+		return "index";
+	}
+
+	@GetMapping("/Add-Task")
+	public String page_one(Model model) {
+		model.addAttribute("task", new Task());
+		return "Add-Task";
+	}
+
+	@GetMapping("/View")
+	public String page_two(Model model) {
+		model.addAttribute("Task", taskservice.get());
+		return "View-Task";
+	}
+
+	@GetMapping("addProblem")
+	public String problems(Model m) {
+
+		m.addAttribute("problem", new Problems());
+		return "problem";
 	}
 
 }

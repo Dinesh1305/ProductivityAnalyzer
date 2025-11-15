@@ -17,12 +17,12 @@ public class Problems {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public URL getUrl() {
 		return url;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setUrl(URL url) {

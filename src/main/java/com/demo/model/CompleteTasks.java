@@ -16,58 +16,22 @@ import jakarta.persistence.Transient;
 @Entity
 public class CompleteTasks {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	private String work;
-
-	private Timestamp starting_time;
+	@CreationTimestamp
+	@Temporal(TemporalType.DATE) // or TIME or TIMESTAMP
+	private Date createdDate;
 	@CreationTimestamp
 
 	private Timestamp ending_time;
 
-	@CreationTimestamp
-	@Temporal(TemporalType.DATE) // or TIME or TIMESTAMP
-	private Date createdDate;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	private Timestamp starting_time;
+
+	private String work;
 
 	public Date getCreatedDate() {
 		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getWork() {
-		return work;
-	}
-
-	public void setWork(String work) {
-		this.work = work;
-	}
-
-	public Timestamp getStarting_time() {
-		return starting_time;
-	}
-
-	public void setStarting_time(Timestamp starting_time) {
-		this.starting_time = starting_time;
-	}
-
-	public Timestamp getEnding_time() {
-		return ending_time;
-	}
-
-	public void setEnding_time(Timestamp ending_time) {
-		this.ending_time = ending_time;
 	}
 
 	@Transient
@@ -82,6 +46,42 @@ public class CompleteTasks {
 		long secs = seconds % 60;
 
 		return String.format("%02dh %02dm %02ds", hrs, mins, secs);
+	}
+
+	public Timestamp getEnding_time() {
+		return ending_time;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public Timestamp getStarting_time() {
+		return starting_time;
+	}
+
+	public String getWork() {
+		return work;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public void setEnding_time(Timestamp ending_time) {
+		this.ending_time = ending_time;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setStarting_time(Timestamp starting_time) {
+		this.starting_time = starting_time;
+	}
+
+	public void setWork(String work) {
+		this.work = work;
 	}
 
 	@Override

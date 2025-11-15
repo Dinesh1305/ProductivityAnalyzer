@@ -15,18 +15,18 @@ public class TaskController {
 	@Autowired
 	TaskService taskservice;
 
-	@PostMapping("save")
-	public String save(@ModelAttribute Task t) {
-		taskservice.save(t);
-
-		return "redirect:/";
-	}
-
 	@PostMapping("done/{id}")
 	public String done(@PathVariable Integer id) {
 		taskservice.remove(id);
 		return "redirect:/";
 
+	}
+
+	@PostMapping("save")
+	public String save(@ModelAttribute Task t) {
+		taskservice.save(t);
+
+		return "redirect:/";
 	}
 
 }

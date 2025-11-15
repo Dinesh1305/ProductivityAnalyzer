@@ -7,8 +7,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.demo.model.CompleteTasks;
-import com.demo.model.Task;
 import com.demo.model.Tasks;
 
 @Service

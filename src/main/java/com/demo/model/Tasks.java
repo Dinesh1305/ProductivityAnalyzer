@@ -1,9 +1,9 @@
 package com.demo.model;
 
 public interface Tasks {
-	String getWork();
+	String getTotalDuration();
 
 	Long getTotalSeconds();
 
-	String getTotalDuration();
+	String getWork();
 }

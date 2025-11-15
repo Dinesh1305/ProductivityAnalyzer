@@ -19,12 +19,12 @@ public class ProblemService {
 
 	}
 
-	public List<Problems> getAll() {
-		return repo.findAll();
-	}
-
 	public void delete(String name) {
 		repo.deleteById(name);
+	}
+
+	public List<Problems> getAll() {
+		return repo.findAll();
 	}
 
 }

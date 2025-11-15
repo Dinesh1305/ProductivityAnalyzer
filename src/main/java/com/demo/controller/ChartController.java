@@ -27,6 +27,38 @@ public class ChartController {
 	@Autowired
 	ChartService service2;
 
+	@GetMapping("/full")
+	public Map<String, Object> getFull() {
+		Map<String, Object> response = new HashMap<>();
+
+		List<Tasks> t1 = service2.FullList();
+
+		List<String> work = new ArrayList<>();
+
+		List<Long> duration = new ArrayList<>();
+
+		Map<Long, String> map = new TreeMap<>(Collections.reverseOrder());
+
+		for (Tasks temp : t1) {
+
+			map.put(temp.getTotalSeconds(), temp.getWork());
+		}
+
+		for (Long temp : map.keySet()) {
+
+			duration.add(temp);
+			work.add(map.get(temp));
+		}
+		// Labels for x-axis
+		response.put("labels", work);
+
+		// Data for y-axis
+		response.put("data", duration);
+
+		return response;
+
+	}
+
 	@GetMapping("/today")
 	public Map<String, Object> getToday() {
 		Map<String, Object> response = new HashMap<>();
@@ -84,38 +116,6 @@ public class ChartController {
 
 	}
 
-	@GetMapping("/full")
-	public Map<String, Object> getFull() {
-		Map<String, Object> response = new HashMap<>();
-
-		List<Tasks> t1 = service2.FullList();
-
-		List<String> work = new ArrayList<>();
-
-		List<Long> duration = new ArrayList<>();
-
-		Map<Long, String> map = new TreeMap<>(Collections.reverseOrder());
-
-		for (Tasks temp : t1) {
-
-			map.put(temp.getTotalSeconds(), temp.getWork());
-		}
-
-		for (Long temp : map.keySet()) {
-
-			duration.add(temp);
-			work.add(map.get(temp));
-		}
-		// Labels for x-axis
-		response.put("labels", work);
-
-		// Data for y-axis
-		response.put("data", duration);
-
-		return response;
-
-	}
-
 	@GetMapping("weekly")
 	public Map<String, Object> getWeekly() {
 		Map<String, Object> map = new HashMap<>();
@@ -138,7 +138,7 @@ public class ChartController {
 		map.put("data", duration);
 
 		return map;
-		// return null;
+	
 	}
 
 }

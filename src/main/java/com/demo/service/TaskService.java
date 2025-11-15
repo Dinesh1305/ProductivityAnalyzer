@@ -14,20 +14,18 @@ import com.demo.repository.TaskRepo;
 @Service
 public class TaskService {
 	@Autowired
-	TaskRepo task;
-	@Autowired
 	CompleteTaskRepo completetasksrepo;
-
-	public void save(Task t) {
-
-		long size = task.count();
-		if (size == 0)
-			task.save(t);
-	}
+	@Autowired
+	TaskRepo task;
 
 	public List<Task> get() {
 
 		return task.findAll();
+	}
+
+	public Long getCount()
+	{
+		return task.count();
 	}
 
 	public void remove(Integer id) {
@@ -46,9 +44,11 @@ public class TaskService {
 	
 	
 	
-	public Long getCount()
-	{
-		return task.count();
+	public void save(Task t) {
+
+		long size = task.count();
+		if (size == 0)
+			task.save(t);
 	}
 
 }

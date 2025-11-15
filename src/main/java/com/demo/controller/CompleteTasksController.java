@@ -2,7 +2,6 @@ package com.demo.controller;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,17 +34,14 @@ public class CompleteTasksController {
 
 	}
 
-	@GetMapping("between")
-	public String getTasks(
-			@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-			@RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, Model model) {
+	@GetMapping("date")
+	public String FilterByDate(@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+			Model m) {
+		Date t = java.sql.Date.valueOf(date);
 
-		Date d1 = java.sql.Date.valueOf(startDate);
-		Date d2 = java.sql.Date.valueOf(endDate);
+		m.addAttribute("tasks", service.filterByDate(t));
 
-		model.addAttribute("List", service.find(d1, d2));
-		return "task";
-
+		return "duration";
 	}
 
 	@GetMapping("getAll")
@@ -53,13 +49,6 @@ public class CompleteTasksController {
 		List<Tasks> t = service.getAll();
 //System.out.println(t);
 		m.addAttribute("tasks", t);
-		return "duration";
-	}
-
-	@GetMapping("week")
-	public String findWeek(Model m) {
-		m.addAttribute("tasks", service.getWeek());
-
 		return "duration";
 	}
 
@@ -72,14 +61,24 @@ public class CompleteTasksController {
 		return "duration";
 	}
 
-	@GetMapping("date")
-	public String FilterByDate(@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-			Model m) {
-		Date t = java.sql.Date.valueOf(date);
-
-		m.addAttribute("tasks", service.filterByDate(t));
+	@GetMapping("week")
+	public String findWeek(Model m) {
+		m.addAttribute("tasks", service.getWeek());
 
 		return "duration";
+	}
+
+	@GetMapping("between")
+	public String getTasks(
+			@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+			@RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, Model model) {
+
+		Date d1 = java.sql.Date.valueOf(startDate);
+		Date d2 = java.sql.Date.valueOf(endDate);
+
+		model.addAttribute("List", service.find(d1, d2));
+		return "task";
+
 	}
 
 	@PostMapping("/removeTask/{id}")

@@ -11,10 +11,10 @@ import com.demo.service.MailSenderService;
 public class MailController {
 
 	@Autowired
-	CompleteTaskService service;
+	MailSenderService mail;
 
 	@Autowired
-	MailSenderService mail;
+	CompleteTaskService service;
 
 	@GetMapping("send")
 	public String send() {
