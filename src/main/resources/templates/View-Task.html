@@ -164,8 +164,8 @@
 							<button type="submit" class="action-btn" title="Mark Done"><i class="ri-check-line"></i></button>
 						</form>
 						
-						<form th:action="@{/removeTask/{id}(id=${task.id})}" method="post" style="display:inline;" >
-							<button type="submit" class="action-btn" title="Remove Task"><i class="ri-delete-bin-6-line"></i></button>
+						<form th:action="@{/deleteTask/{id}(id=${task.id})}" method="post" style="display:inline;">
+						    <button type="submit" class="action-btn" title="Remove Task"><i class="ri-delete-bin-6-line"></i></button>
 						</form>
 					</td>
 				</tr>

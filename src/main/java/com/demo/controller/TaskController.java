@@ -21,6 +21,11 @@ public class TaskController {
 		return "redirect:/";
 
 	}
+	@PostMapping("/deleteTask/{id}")
+	public String deleteTask(@PathVariable Integer id) {
+	    taskservice.deleteById(id);
+	    return "redirect:/View"; // Redirect back to the view page
+	}
 
 	@PostMapping("save")
 	public String save(@ModelAttribute Task t) {

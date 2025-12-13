@@ -17,6 +17,10 @@ public class TaskService {
 	CompleteTaskRepo completetasksrepo;
 	@Autowired
 	TaskRepo task;
+	
+	public void deleteById(Integer id) {
+	    task.deleteById(id);
+	}
 
 	public List<Task> get() {
 
