@@ -17,7 +17,6 @@
 			height: 100vh;
 		}
 
-
 		.container {
 			background: rgba(255, 255, 255, 0.2);
 			backdrop-filter: blur(12px);
@@ -111,6 +110,22 @@
 			font-size: 14px;
 			margin-top: 15px;
 		}
+
+		/* --- NEW ANIMATIONS --- */
+		@keyframes popIn {
+			0% { transform: scale(0.8); opacity: 0; }
+			50% { transform: scale(1.05); opacity: 1; }
+			100% { transform: scale(1); opacity: 1; }
+		}
+
+		.success-animated {
+			animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+			padding: 10px;
+			background: rgba(0, 255, 136, 0.1);
+			border: 1px solid #00ff88;
+			border-radius: 8px;
+			text-align: center;
+		}
 	</style>
 </head>
 
@@ -132,23 +147,27 @@
 	</div>
 
 	<script>
-    function validateForm() {
-      const taskInput = document.getElementById('work');
-      const errorMessage = document.getElementById('error-message');
-      const successMessage = document.getElementById('success-message');
+		function validateForm() {
+			const taskInput = document.getElementById('work');
+			const errorMessage = document.getElementById('error-message');
+			const successMessage = document.getElementById('success-message');
 
-      errorMessage.textContent = '';
-      successMessage.style.display = 'none';
+			errorMessage.textContent = '';
+			successMessage.style.display = 'none';
+			successMessage.className = 'success'; // Reset class before showing again
 
-      if (taskInput.value.trim() === '') {
-        errorMessage.textContent = '⚠️ Task cannot be empty.';
-        return false;
-      }
+			if (taskInput.value.trim() === '') {
+				errorMessage.textContent = '⚠️ Task cannot be empty.';
+				return false;
+			}
 
-      successMessage.textContent = '✅ Task added successfully!';
-      successMessage.style.display = 'block';
-      return true;
-    }
+			// Apply new animated class and show
+			successMessage.textContent = '✅ Task added successfully!';
+			successMessage.className = 'success success-animated';
+			successMessage.style.display = 'block';
+			
+			return true;
+		}
 	</script>
 </body>
 

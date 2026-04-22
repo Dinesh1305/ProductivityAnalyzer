@@ -10,18 +10,18 @@
 	<style>
 		body {
 			font-family: 'Inter', sans-serif;
-	background: linear-gradient(135deg, #141E30, #243B55);
+			background: linear-gradient(135deg, #141E30, #243B55);
 			padding: 30px;
 			margin: 0;
 			color: #2c3e50;
-			font-size: 16px; /* increased base font */
+			font-size: 16px; 
 		}
 
 		.container {
 			background: rgba(255, 255, 255, 0.95);
-			padding: 30px; /* more padding */
+			padding: 30px; 
 			border-radius: 20px;
-			max-width: 1000px; /* wider container */
+			max-width: 1000px; 
 			margin: 30px auto;
 			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 		}
@@ -30,7 +30,7 @@
 			text-align: center;
 			color: #0d47a1;
 			margin-bottom: 24px;
-			font-size: 28px; /* bigger heading */
+			font-size: 28px; 
 		}
 
 		table {
@@ -39,12 +39,11 @@
 			background: rgba(255, 255, 255, 0.9);
 			border-radius: 12px;
 			overflow: hidden;
-			font-size: 16px; /* bigger table text */
+			font-size: 16px; 
 		}
 
-		th,
-		td {
-			padding: 14px 12px; /* larger padding */
+		th, td {
+			padding: 14px 12px; 
 			text-align: center;
 			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		}
@@ -68,7 +67,7 @@
 			background: none;
 			border: none;
 			cursor: pointer;
-			font-size: 20px; /* bigger icons */
+			font-size: 20px; 
 			margin: 0 5px;
 			color: #1565c0;
 			transition: transform 0.2s ease, color 0.3s ease;
@@ -85,13 +84,15 @@
 			text-decoration: none;
 			color: white;
 			background: linear-gradient(135deg, #42a5f5, #1e88e5);
-			padding: 12px 28px; /* bigger button */
+			padding: 12px 28px; 
 			border-radius: 14px;
 			font-size: 16px;
 			font-weight: 600;
 			text-align: center;
 			width: fit-content;
 			transition: background 0.3s ease, transform 0.2s ease;
+			/* Added continuous pulse animation */
+			animation: softPulse 2s infinite;
 		}
 
 		a.add-btn:hover {
@@ -99,22 +100,36 @@
 			transform: translateY(-2px);
 		}
 
+		/* --- NEW ANIMATIONS --- */
+		@keyframes slideInUp {
+			from {
+				opacity: 0;
+				transform: translateY(20px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		tbody tr {
+			opacity: 0;
+			animation: slideInUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+		}
+
+		@keyframes softPulse {
+			0% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7); }
+			70% { box-shadow: 0 0 0 15px rgba(0, 212, 255, 0); }
+			100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0); }
+		}
+
 		/* Mobile view */
 		@media (max-width: 700px) {
-			table,
-			thead,
-			tbody,
-			th,
-			td,
-			tr {
+			table, thead, tbody, th, td, tr {
 				display: block;
 				width: 100%;
 			}
-
-			th {
-				display: none;
-			}
-
+			th { display: none; }
 			tr {
 				margin-bottom: 15px;
 				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -123,14 +138,12 @@
 				background: rgba(255, 255, 255, 0.95);
 				font-size: 15px;
 			}
-
 			td {
 				text-align: left;
 				padding: 10px 12px;
 				border-bottom: none;
 				position: relative;
 			}
-
 			td::before {
 				content: attr(data-label);
 				font-weight: bold;
@@ -156,7 +169,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="task : ${Task}">
+				<tr th:each="task, iterStat : ${Task}" th:style="'animation-delay: ' + (${iterStat.index} * 0.1) + 's;'">
 					<td data-label="Task" th:text="${task.work}">Sample Task</td>
 					<td data-label="Created Time" th:text="${#dates.format(task.time, 'hh:mm:ss a')}">12:00 PM</td>
 					<td data-label="Action">

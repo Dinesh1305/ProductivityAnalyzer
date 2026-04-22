@@ -5,7 +5,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Productivity-Analyzer - Home</title>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<style>
@@ -28,17 +28,9 @@
 		}
 
 		@keyframes bgAnimation {
-			0% {
-				background-position: 0% 50%;
-			}
-
-			50% {
-				background-position: 100% 50%;
-			}
-
-			100% {
-				background-position: 0% 50%;
-			}
+			0% { background-position: 0% 50%; }
+			50% { background-position: 100% 50%; }
+			100% { background-position: 0% 50%; }
 		}
 
 		.index-container {
@@ -64,7 +56,7 @@
 
 		h1 {
 			color: #ffffff;
-			margin-bottom: 18px;
+			margin-bottom: 10px;
 			font-size: 2.5rem;
 			font-weight: 600;
 			text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
@@ -73,9 +65,48 @@
 		#greeting {
 			font-size: 1.2rem;
 			color: #e0e0e0;
-			margin-bottom: 35px;
+			margin-bottom: 25px;
 			font-weight: 500;
 			letter-spacing: 0.5px;
+		}
+
+		/* --- NEW: Animated Total Time Display --- */
+		.total-time-container {
+			background: rgba(0, 212, 255, 0.1);
+			border: 1px solid rgba(0, 212, 255, 0.3);
+			border-radius: 16px;
+			padding: 20px 40px;
+			margin-bottom: 35px;
+			display: inline-block;
+			box-shadow: 0 8px 24px rgba(0, 212, 255, 0.15);
+			animation: pulseGlow 2.5s infinite alternate;
+			transition: transform 0.3s ease;
+		}
+
+		.total-time-container:hover {
+			transform: scale(1.05);
+		}
+
+		.time-label {
+			font-size: 0.95rem;
+			color: #b3e5fc;
+			margin-bottom: 8px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 1.5px;
+		}
+
+		.time-value {
+			font-size: 2.5rem;
+			font-weight: 700;
+			color: #00d4ff;
+			text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+			font-variant-numeric: tabular-nums; /* Prevents numbers from shifting left/right while animating */
+		}
+
+		@keyframes pulseGlow {
+			from { box-shadow: 0 4px 15px rgba(0, 212, 255, 0.1); }
+			to { box-shadow: 0 8px 30px rgba(0, 212, 255, 0.4); }
 		}
 
 		/* Grid layout */
@@ -110,7 +141,6 @@
 			transition: transform 0.3s ease, color 0.3s ease;
 		}
 
-		/* Hover effect */
 		nav ul.nav-links li a:hover {
 			background: rgba(25, 118, 210, 0.9);
 			color: #ffffff;
@@ -125,18 +155,10 @@
 		}
 
 		@media (max-width: 600px) {
-			.index-container {
-				padding: 35px 22px;
-			}
-
-			h1 {
-				font-size: 1.9rem;
-			}
-
-			nav ul.nav-links li a {
-				font-size: 1rem;
-				padding: 22px 14px;
-			}
+			.index-container { padding: 35px 22px; }
+			h1 { font-size: 1.9rem; }
+			.time-value { font-size: 2rem; }
+			nav ul.nav-links li a { font-size: 1rem; padding: 22px 14px; }
 		}
 	</style>
 </head>
@@ -145,6 +167,12 @@
 	<div class="index-container" id="mainContainer">
 		<h1>Welcome to ProductivityAnalyzer</h1>
 		<div id="greeting">Hello!</div>
+
+		<div class="total-time-container">
+			<div class="time-label">Total Time Worked Today</div>
+			<div class="time-value" id="totalTimeDisplay">00h 00m 00s</div>
+		</div>
+
 		<nav>
 			<ul class="nav-links">
 				<li><a href="/Add-Task"><i class="fas fa-plus-circle"></i>Add Task</a></li>
@@ -158,10 +186,8 @@
 	</div>
 
 	<script>
-		// Fade-in + greeting
-		window.addEventListener('DOMContentLoaded', () => {
-			document.getElementById('mainContainer').classList.add('show');
-
+		// Setup Greeting
+		function setGreeting() {
 			const greeting = document.getElementById("greeting");
 			const hour = new Date().getHours();
 			if (hour < 12) {
@@ -171,6 +197,63 @@
 			} else {
 				greeting.textContent = "Good Evening 🌙";
 			}
+		}
+
+		// Format seconds into HH:MM:SS
+		function formatTime(totalSeconds) {
+			const hrs = Math.floor(totalSeconds / 3600);
+			const mins = Math.floor((totalSeconds % 3600) / 60);
+			const secs = totalSeconds % 60;
+			return `${String(hrs).padStart(2, '0')}h ${String(mins).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
+		}
+
+		// Count-Up Animation Logic
+		function animateValue(id, start, end, duration) {
+			const obj = document.getElementById(id);
+			let startTimestamp = null;
+
+			const step = (timestamp) => {
+				if (!startTimestamp) startTimestamp = timestamp;
+				const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+				
+				// Ease-out effect so it slows down near the end
+				const easeProgress = 1 - Math.pow(1 - progress, 3); 
+				const currentSeconds = Math.floor(easeProgress * (end - start) + start);
+				
+				obj.textContent = formatTime(currentSeconds);
+				
+				if (progress < 1) {
+					window.requestAnimationFrame(step);
+				}
+			};
+			window.requestAnimationFrame(step);
+		}
+
+		// Fetch Today's Data and Trigger Animation
+		async function fetchAndAnimateTotalTime() {
+			try {
+				const response = await fetch('/api/chart/today');
+				const result = await response.json();
+				
+				// Ensure data exists, then sum up all the seconds logged today
+				let totalSeconds = 0;
+				if (result.data && result.data.length > 0) {
+					totalSeconds = result.data.reduce((sum, current) => sum + current, 0);
+				}
+				
+				// Run the count-up animation over 1.5 seconds
+				animateValue("totalTimeDisplay", 0, totalSeconds, 1500);
+			} catch (error) {
+				console.error("Error fetching total time:", error);
+				document.getElementById("totalTimeDisplay").textContent = "Error loading time";
+			}
+		}
+
+		// Initialize on page load
+		window.addEventListener('DOMContentLoaded', () => {
+			document.getElementById('mainContainer').classList.add('show');
+			setGreeting();
+			fetchAndAnimateTotalTime();
 		});
 	</script>
 </body>
